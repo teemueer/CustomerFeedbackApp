@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "776824670612",
+    "firebase_url": "https://customer-feedback-app-56cdc-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "customer-feedback-app-56cdc",
+    "storage_bucket": "customer-feedback-app-56cdc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:776824670612:android:5a54393859b05fb9012781",
+        "android_client_info": {
+          "package_name": "com.example.customerfeedbackapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "776824670612-20u6q3qtubcka0i05ks6v0hqh3upftp4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA25v5blwUuIX54k5RwD9zfR98cpJcxocM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "776824670612-20u6q3qtubcka0i05ks6v0hqh3upftp4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
