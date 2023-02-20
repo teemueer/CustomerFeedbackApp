@@ -1,5 +1,8 @@
 package com.example.customerfeedbackapp.screens.home
 
+import android.Manifest
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -11,10 +14,21 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.navigation.NavController
 import com.example.customerfeedbackapp.MainViewModel
 import com.example.customerfeedbackapp.models.User
+import com.example.customerfeedbackapp.permissions.PermissionViewModel
 
 @Composable
-fun HomeScreen(navController: NavController, viewModel: MainViewModel) {
+fun HomeScreen(navController: NavController, viewModel: MainViewModel, permissionViewModel: PermissionViewModel) {
     val user: User? by viewModel.currentUser.observeAsState(null)
+    val dialogQueue = permissionViewModel.visiblePermissionDialogue
+    val locationPermissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission(),
+        onResult = { isGranted ->
+            permissionViewModel.onPermissionResult(
+                permission = Manifest.permission.ACCESS_FINE_LOCATION,
+                isGranted = isGranted
+            )
+        }
+    )
 
     Scaffold(floatingActionButton = {
         if (user != null) {
@@ -32,4 +46,26 @@ fun HomeScreen(navController: NavController, viewModel: MainViewModel) {
             }
         }
     }
+    Column() {
+        Button(onClick = { locationPermissionLauncher.launch(
+            Manifest.permission.ACCESS_FINE_LOCATION
+        )}) {
+            Text(text = "This is a test")
+        }
+    }
+}
+
+@Composable
+fun MapView(){
+
+}
+
+@Composable
+fun StoreInformation(){
+
+}
+
+@Composable
+fun StoreNews(){
+
 }
