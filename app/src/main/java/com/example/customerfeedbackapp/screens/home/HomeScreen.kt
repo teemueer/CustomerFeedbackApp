@@ -7,6 +7,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -37,16 +39,6 @@ fun HomeScreen(
     permissionViewModel: PermissionViewModel
 ) {
     val user: User? by viewModel.currentUser.observeAsState(null)
-    val locationPermissionLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.RequestPermission(),
-        onResult = { isGranted ->
-            permissionViewModel.onPermissionResult(
-                permission = Manifest.permission.ACCESS_FINE_LOCATION,
-                isGranted = isGranted
-            )
-        }
-    )
-
     Scaffold(
 
         floatingActionButton = {
@@ -82,8 +74,11 @@ fun HomeScreen(
 @Composable
 fun HomeView(modifier: Modifier = Modifier) {
     Surface(modifier) {
-        Column(modifier = modifier.padding(16.dp)) {
+        Column(modifier = modifier
+            .padding(16.dp)
+            .verticalScroll(rememberScrollState())) {
             StoreHeader()
+            StoreInformation()
             StoreNewsFeed()
         }
     }
@@ -117,7 +112,7 @@ fun StoreHeader(
             elevation = 10.dp,
         ) {
             Image(
-                painter = painterResource(id = images[1]),
+                painter = painterResource(id = images[0]),
                 contentDescription = "An image of a grocery store"
             )
         }
@@ -141,19 +136,68 @@ All Composable elements used for store information
 @Composable
 fun StoreInformation() {
     Column(
-        modifier = Modifier.padding(vertical = 15.dp)
+        modifier = Modifier
+            .padding(vertical = 15.dp)
+            .fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Card(
-            modifier = Modifier,
-            elevation = 10.dp,
-        ) {
-            Text(text = "Open Hours")
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(text = "Open-Closed")
+            Row(Modifier.padding(4.dp)) {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(text = "Mon")
+                    Text(text = "08:00")
+                    Text(text = "-")
+                    Text("22:00")
+                }
+                Spacer(modifier = Modifier.width(10.dp))
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(text = "Mon")
+                    Text(text = "08:00")
+                    Text(text = "-")
+                    Text("22:00")
+                }
+                Spacer(modifier = Modifier.width(10.dp))
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(text = "Mon")
+                    Text(text = "08:00")
+                    Text(text = "-")
+                    Text("22:00")
+                }
+                Spacer(modifier = Modifier.width(10.dp))
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(text = "Mon")
+                    Text(text = "08:00")
+                    Text(text = "-")
+                    Text("22:00")
+                }
+                Spacer(modifier = Modifier.width(10.dp))
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(text = "Mon")
+                    Text(text = "08:00")
+                    Text(text = "-")
+                    Text("22:00")
+                }
+                Spacer(modifier = Modifier.width(10.dp))
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(text = "Mon")
+                    Text(text = "08:00")
+                    Text(text = "-")
+                    Text("22:00")
+                }
+                Spacer(modifier = Modifier.width(10.dp))
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(text = "Mon")
+                    Text(text = "08:00")
+                    Text(text = "-")
+                    Text("22:00")
+                }
+            }
         }
-
     }
 }
 
-@Preview(showBackground = true, widthDp = 320)
+@Preview(showBackground = true, widthDp = 400)
 @Composable
 fun StoreInformationPreview() {
     CustomerFeedbackAppTheme {
@@ -162,8 +206,6 @@ fun StoreInformationPreview() {
         }
     }
 }
-
-
 
 /*
 All Composable elements used for store news
@@ -177,7 +219,7 @@ data class NewsArticle(
 fun StoreNews(headline:String, body:String) {
     Surface(
         color = MaterialTheme.colors.primary,
-        modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp)
+        modifier = Modifier.padding(vertical = 4.dp)
     ) {
         Column(modifier = Modifier
             .padding(16.dp)
@@ -200,7 +242,9 @@ fun StoreNewsFeed(
         NewsArticle("LOREM IPSUM","LOREM IPSUM SÄLÄ BÄLÄ HÄLÄ TÄLÄ KÄLÄ MÄLÄ JÄL DÄLÄ "),
         ),
 ){
-    LazyColumn(modifier = modifier.padding(vertical = 5.dp)){
+    LazyColumn(modifier = modifier
+        .padding(vertical = 5.dp)
+        .height(350.dp)){
         items(items = articles){
             article ->
             StoreNews(headline = article.headline, body =article.body )
