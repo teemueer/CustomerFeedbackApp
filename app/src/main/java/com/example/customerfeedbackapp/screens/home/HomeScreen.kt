@@ -28,6 +28,9 @@ import androidx.navigation.NavController
 import com.example.customerfeedbackapp.CustomerFeedbackApp
 import com.example.customerfeedbackapp.MainViewModel
 import com.example.customerfeedbackapp.R
+import com.example.customerfeedbackapp.composables.BottomBar
+import com.example.customerfeedbackapp.composables.UiFab
+import com.example.customerfeedbackapp.composables.UiTopAppBar
 import com.example.customerfeedbackapp.models.User
 import com.example.customerfeedbackapp.permissions.PermissionViewModel
 import com.example.customerfeedbackapp.ui.theme.CustomerFeedbackAppTheme
@@ -38,25 +41,12 @@ fun HomeScreen(
     viewModel: MainViewModel,
     permissionViewModel: PermissionViewModel
 ) {
-    val user: User? by viewModel.currentUser.observeAsState(null)
     Scaffold(
 
-        floatingActionButton = {
-            if (user != null) {
-                FloatingActionButton(onClick = { /*TODO*/ }) {
-                    Icon(Icons.Filled.Add, "Add")
-                }
-            }
+        floatingActionButton = { UiFab(navController, viewModel)
         },
-
-        topBar = {
-            TopAppBar {
-                IconButton(onClick = { navController.navigate("settings") }) {
-                    Icon(Icons.Filled.Settings, "Settings")
-                }
-                Text(user?.email ?: "anonymous")
-            }
-        }
+        topBar = { UiTopAppBar(navController, viewModel) },
+        bottomBar = { BottomBar(navController) }
 
     ) {
         Column(
@@ -74,9 +64,11 @@ fun HomeScreen(
 @Composable
 fun HomeView(modifier: Modifier = Modifier) {
     Surface(modifier) {
-        Column(modifier = modifier
-            .padding(16.dp)
-            .verticalScroll(rememberScrollState())) {
+        Column(
+            modifier = modifier
+                .padding(18.dp)
+                .verticalScroll(rememberScrollState())
+        ) {
             StoreHeader()
             StoreInformation()
             StoreNewsFeed()
@@ -142,60 +134,26 @@ fun StoreInformation() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(text = "Open-Closed")
-            Row(Modifier.padding(4.dp)) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(text = "Mon")
-                    Text(text = "08:00")
-                    Text(text = "-")
-                    Text("22:00")
-                }
-                Spacer(modifier = Modifier.width(10.dp))
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(text = "Mon")
-                    Text(text = "08:00")
-                    Text(text = "-")
-                    Text("22:00")
-                }
-                Spacer(modifier = Modifier.width(10.dp))
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(text = "Mon")
-                    Text(text = "08:00")
-                    Text(text = "-")
-                    Text("22:00")
-                }
-                Spacer(modifier = Modifier.width(10.dp))
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(text = "Mon")
-                    Text(text = "08:00")
-                    Text(text = "-")
-                    Text("22:00")
-                }
-                Spacer(modifier = Modifier.width(10.dp))
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(text = "Mon")
-                    Text(text = "08:00")
-                    Text(text = "-")
-                    Text("22:00")
-                }
-                Spacer(modifier = Modifier.width(10.dp))
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(text = "Mon")
-                    Text(text = "08:00")
-                    Text(text = "-")
-                    Text("22:00")
-                }
-                Spacer(modifier = Modifier.width(10.dp))
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(text = "Mon")
-                    Text(text = "08:00")
-                    Text(text = "-")
-                    Text("22:00")
-                }
-            }
         }
     }
 }
+
+@Composable
+fun StoreOpenClosed() {
+
+
+}
+
+@Preview(showBackground = true, widthDp = 400)
+@Composable
+fun StoreOCPreview() {
+    CustomerFeedbackAppTheme {
+        Column {
+            StoreOpenClosed()
+        }
+    }
+}
+
 
 @Preview(showBackground = true, widthDp = 400)
 @Composable
@@ -211,19 +169,21 @@ fun StoreInformationPreview() {
 All Composable elements used for store news
  */
 data class NewsArticle(
-    val headline:String,
+    val headline: String,
     val body: String
 )
 
 @Composable
-fun StoreNews(headline:String, body:String) {
+fun StoreNews(headline: String, body: String) {
     Surface(
         color = MaterialTheme.colors.primary,
         modifier = Modifier.padding(vertical = 4.dp)
     ) {
-        Column(modifier = Modifier
-            .padding(16.dp)
-            .fillMaxWidth()) {
+        Column(
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth()
+        ) {
             Text(text = headline)
             Spacer(modifier = Modifier.height(4.dp))
             Text(text = body)
@@ -235,19 +195,23 @@ fun StoreNews(headline:String, body:String) {
 fun StoreNewsFeed(
     modifier: Modifier = Modifier,
     articles: List<NewsArticle> = listOf(
-        NewsArticle("A headline","asdasdjhgdxhfgkjdxhklfjghrdughudxlruhghx djhxdrjklhgx djrh gxdhfjklg hxdjkrh jgkxh dfjklgh xkdjr hgjkhx drkjgh x"),
-        NewsArticle("Yes","Data"),
-        NewsArticle("rgjdjghdxjkrhgjkdxhrkjghxjkdhrg","toasters are on salt for this week tbw"),
-        NewsArticle("LOREM IPSUM","LOREM IPSUM SÄLÄ BÄLÄ HÄLÄ TÄLÄ KÄLÄ MÄLÄ JÄL DÄLÄ "),
-        NewsArticle("LOREM IPSUM","LOREM IPSUM SÄLÄ BÄLÄ HÄLÄ TÄLÄ KÄLÄ MÄLÄ JÄL DÄLÄ "),
+        NewsArticle(
+            "A headline",
+            "asdasdjhgdxhfgkjdxhklfjghrdughudxlruhghx djhxdrjklhgx djrh gxdhfjklg hxdjkrh jgkxh dfjklgh xkdjr hgjkhx drkjgh x"
         ),
-){
-    LazyColumn(modifier = modifier
-        .padding(vertical = 5.dp)
-        .height(350.dp)){
-        items(items = articles){
-            article ->
-            StoreNews(headline = article.headline, body =article.body )
+        NewsArticle("Yes", "Data"),
+        NewsArticle("rgjdjghdxjkrhgjkdxhrkjghxjkdhrg", "toasters are on salt for this week tbw"),
+        NewsArticle("LOREM IPSUM", "LOREM IPSUM SÄLÄ BÄLÄ HÄLÄ TÄLÄ KÄLÄ MÄLÄ JÄL DÄLÄ "),
+        NewsArticle("LOREM IPSUM", "LOREM IPSUM SÄLÄ BÄLÄ HÄLÄ TÄLÄ KÄLÄ MÄLÄ JÄL DÄLÄ "),
+    ),
+) {
+    LazyColumn(
+        modifier = modifier
+            .padding(vertical = 5.dp)
+            .height(350.dp)
+    ) {
+        items(items = articles) { article ->
+            StoreNews(headline = article.headline, body = article.body)
         }
     }
 }

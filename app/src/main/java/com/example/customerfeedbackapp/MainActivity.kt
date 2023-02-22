@@ -16,6 +16,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.customerfeedbackapp.permissions.PermissionViewModel
+import com.example.customerfeedbackapp.screens.customer.ItemMenu
 import com.example.customerfeedbackapp.screens.home.HomeScreen
 import com.example.customerfeedbackapp.screens.login.LoginScreen
 import com.example.customerfeedbackapp.screens.settings.SettingsScreen
@@ -48,6 +49,9 @@ fun CustomerFeedbackApp(viewModel: MainViewModel, permissionViewModel: Permissio
         }
         composable(route = "login") {
             LoginScreen(navController, viewModel)
+        }
+        composable(route="ItemMenu"){
+            ItemMenu(navController, viewModel)
         }
     }
 }
