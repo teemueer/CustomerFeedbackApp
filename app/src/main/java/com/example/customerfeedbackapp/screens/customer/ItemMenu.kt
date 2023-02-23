@@ -1,6 +1,7 @@
 package com.example.customerfeedbackapp.screens.customer
 
 import androidx.appcompat.view.menu.MenuView
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -25,40 +26,33 @@ fun ItemMenu(
     navController: NavController,
     viewModel: MainViewModel,
 ) {
-    MenuView()
+    MenuView(navController)
 }
 
 @Composable
-fun MenuView(modifier: Modifier = Modifier) {
+fun MenuView(navController: NavController,modifier: Modifier = Modifier
+             ) {
     Surface(modifier) {
         Column(
             modifier = modifier
                 .padding(18.dp)
-                .verticalScroll(rememberScrollState())
         ) {
-            MenuItem("Products")
-            MenuItem("Feedback")
+            MenuItem("Products", navController)
+            MenuItem("Feedback", navController)
         }
     }
 }
 
 @Composable
-fun MenuItem(name:String){
+fun MenuItem(name:String, navController: NavController){
     Surface(
         color = MaterialTheme.colors.primary,
         modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp)
     ) {
-        Row(Modifier.padding(24.dp)) {
+        Row(Modifier.padding(24.dp).clickable { navController.navigate(name +"View") }) {
                 Text(text = name,Modifier.weight(1f))
-                Icon(imageVector = Icons.Default.KeyboardArrowRight, contentDescription ="" )
+                Icon(imageVector = Icons.Default.KeyboardArrowRight, contentDescription ="",)
         }
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun MenuPreview() {
-    CustomerFeedbackAppTheme() {
-        MenuView()
-    }
-}

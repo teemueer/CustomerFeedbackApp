@@ -25,6 +25,7 @@ import com.example.customerfeedbackapp.composables.UiFab
 import com.example.customerfeedbackapp.composables.UiTopAppBar
 import com.example.customerfeedbackapp.permissions.PermissionViewModel
 import com.example.customerfeedbackapp.screens.customer.ItemMenu
+import com.example.customerfeedbackapp.screens.customer.ProductsView
 import com.example.customerfeedbackapp.screens.home.HomeScreen
 import com.example.customerfeedbackapp.screens.home.HomeView
 import com.example.customerfeedbackapp.screens.login.LoginScreen
@@ -75,6 +76,9 @@ fun CustomerFeedbackApp(viewModel: MainViewModel, permissionViewModel: Permissio
                 }
                 composable(route="ItemMenu"){
                     ItemMenu(navController, viewModel)
+                }
+                composable(route="ProductsView"){
+                    ProductsView(navController)
                 }
             }
         }
