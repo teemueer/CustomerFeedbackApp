@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import com.example.customerfeedbackapp.models.Feedback
 import com.example.customerfeedbackapp.models.Product
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -27,10 +28,21 @@ class ProductViewModel(private val stateHandle: SavedStateHandle): ViewModel() {
         val handle = firestore.collection("products")
         val ref = handle.whereEqualTo("id", id).get()
         ref.addOnSuccessListener {
-            val updatedProduct = Product(id, name, description)
-            Log.d("DBG", "$updatedProduct")
-            handle.document(it.documents[0].id).set(updatedProduct)
-            state.value = updatedProduct
+            handle.document(it.documents[0].id).update(
+                "name", name,
+                "description", description
+            )
+        }
+    }
+
+    fun rate(rating: Int) {
+        val handle = firestore.collection("products")
+        val ref = handle.whereEqualTo("id", id).get()
+        ref.addOnSuccessListener {
+            val feedback = state.value?.feedback
+            feedback?.add(Feedback(rating))
+            Log.d("DBG", "$feedback")
+            handle.document(it.documents[0].id).update("feedback", feedback)
         }
     }
 }

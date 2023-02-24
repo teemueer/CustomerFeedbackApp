@@ -2,6 +2,7 @@ package com.example.customerfeedbackapp.screens.product
 
 import android.util.Log
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
@@ -23,11 +24,11 @@ import com.example.customerfeedbackapp.models.Product
 fun ProductScreen(navController: NavController, mainViewModel: MainViewModel) {
     val viewModel: ProductViewModel = viewModel()
 
-    //if (mainViewModel.currentUser.value == null) {
-    //    RateProduct(viewModel)
-    //} else {
+    if (mainViewModel.currentUser.value == null) {
+        RateProduct(viewModel)
+    } else {
         EditProduct(viewModel)
-    //}
+    }
 }
 
 @Composable
@@ -36,6 +37,13 @@ fun RateProduct(viewModel: ProductViewModel) {
 
     Column {
         Text("Feedback for ${product?.name}", fontSize = 24.sp)
+        Row {
+            for (i in 1..5) {
+                Button(onClick = { viewModel.rate(i) }) {
+                    Text("$i", fontSize = 24.sp)
+                }
+            }
+        }
     }
 }
 
