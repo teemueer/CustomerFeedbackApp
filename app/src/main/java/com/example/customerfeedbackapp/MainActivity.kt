@@ -47,7 +47,7 @@ fun CustomerFeedbackApp(mainViewModel: MainViewModel) {
             LoginScreen(navController, mainViewModel)
         }
         composable(route = "new_product") {
-            NewProductScreen(navController, NewProductViewModel())
+            NewProductScreen(navController, mainViewModel)
         }
         composable(
             route = "products/{product_id}",

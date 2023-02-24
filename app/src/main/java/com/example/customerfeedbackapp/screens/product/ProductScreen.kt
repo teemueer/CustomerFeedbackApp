@@ -23,11 +23,11 @@ import com.example.customerfeedbackapp.models.Product
 fun ProductScreen(navController: NavController, mainViewModel: MainViewModel) {
     val viewModel: ProductViewModel = viewModel()
 
-    if (mainViewModel.currentUser.value == null) {
-        RateProduct(viewModel)
-    } else {
+    //if (mainViewModel.currentUser.value == null) {
+    //    RateProduct(viewModel)
+    //} else {
         EditProduct(viewModel)
-    }
+    //}
 }
 
 @Composable
@@ -48,10 +48,14 @@ fun EditProduct(viewModel: ProductViewModel) {
 
     Column {
         Text("Edit product", fontSize = 24.sp)
-        TextField(value = product?.name ?: "", onValueChange = { name = it })
-        TextField(value = product?.description ?: "", onValueChange = { description = it },
+        TextField(value = if (name != "") name else product?.name ?: "", onValueChange = { name = it })
+        TextField(value = if (description != "") description else product?.description ?: "", onValueChange = { description = it },
             modifier = Modifier.height(120.dp))
         Button(onClick = {
+            viewModel.update(
+                if (name != "") name else product?.name ?: "",
+                if (description != "") description else product?.description ?: ""
+            )
         }) {
             Text("Update product")
         }

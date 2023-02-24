@@ -10,16 +10,27 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class ProductViewModel(private val stateHandle: SavedStateHandle): ViewModel() {
     private var firestore = FirebaseFirestore.getInstance()
+    private var id: Int = 0
     var state = mutableStateOf<Product?>(null)
 
     init {
-        val id = stateHandle.get<Int>("product_id") ?: 0
-        Log.d("DBG", "id: $id")
+        Log.d("DBG", "ProductViewModel init")
 
+        id = stateHandle.get<Int>("product_id") ?: 0
         val handle = firestore.collection("products")
         val ref = handle.whereEqualTo("id", id).get()
 
         ref.addOnSuccessListener { state.value = it.documents[0].toObject(Product::class.java) }
     }
 
+    fun update(name: String, description: String) {
+        val handle = firestore.collection("products")
+        val ref = handle.whereEqualTo("id", id).get()
+        ref.addOnSuccessListener {
+            val updatedProduct = Product(id, name, description)
+            Log.d("DBG", "$updatedProduct")
+            handle.document(it.documents[0].id).set(updatedProduct)
+            state.value = updatedProduct
+        }
+    }
 }

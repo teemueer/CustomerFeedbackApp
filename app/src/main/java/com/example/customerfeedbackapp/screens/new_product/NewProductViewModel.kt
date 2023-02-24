@@ -1,6 +1,7 @@
 package com.example.customerfeedbackapp.screens.new_product
 
 import android.util.Log
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.customerfeedbackapp.models.Product
@@ -9,7 +10,11 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class NewProductViewModel(): ViewModel() {
     private var firestore = FirebaseFirestore.getInstance()
-    var newProduct = MutableLiveData<Product?>(null)
+    var state = mutableStateOf<Product?>(null)
+
+    init {
+        Log.d("DBG", "NewProductViewModel init")
+    }
 
     fun save(product: Product) {
         val handle = firestore.collection("products")
@@ -23,28 +28,9 @@ class NewProductViewModel(): ViewModel() {
                     } else {
                         handle.document(it.documents[0].id).set(product)
                     }
-                    newProduct.postValue(product)
+                    state.value = product
                 }
             }
         }
-
-        /*
-        existingProductHandle.addOnSuccessListener {
-            handle.document(it.documents[0].id).set(product)
-            newProduct.postValue(product)
-        }
-        */
-
-        /*
-        existingProductHandle.addOnFailureListener {
-            val newProductHandle = handle.add(product)
-            newProductHandle.addOnSuccessListener {
-                newProduct.postValue(product)
-            }
-            newProductHandle.addOnFailureListener {
-                Log.d("DBG", "${it.message}")
-            }
-        }
-        */
     }
 }

@@ -16,8 +16,8 @@ import com.example.customerfeedbackapp.MainViewModel
 import com.example.customerfeedbackapp.models.User
 
 @Composable
-fun SettingsScreen(navController: NavController, viewModel: MainViewModel) {
-    val user: User? by viewModel.currentUser.observeAsState(null)
+fun SettingsScreen(navController: NavController, mainViewModel: MainViewModel) {
+    val user: User? by mainViewModel.currentUser.observeAsState(null)
 
     Column() {
         Row(modifier = Modifier.clickable { navController.navigate("login") }) {
@@ -27,7 +27,7 @@ fun SettingsScreen(navController: NavController, viewModel: MainViewModel) {
             } else {
                 Icon(Icons.Filled.AccountBox, "Log out")
                 Text("Log out", modifier = Modifier.clickable {
-                    viewModel.logout()
+                    mainViewModel.logout()
                     navController.navigate("home")
                 })
             }

@@ -11,7 +11,7 @@ import androidx.navigation.NavController
 import com.example.customerfeedbackapp.MainViewModel
 
 @Composable
-fun RegisterScreen(viewModel: MainViewModel) {
+fun RegisterScreen(mainViewModel: MainViewModel) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var isOwner by remember { mutableStateOf(false) }
@@ -21,7 +21,7 @@ fun RegisterScreen(viewModel: MainViewModel) {
         TextField(value = email, onValueChange = { email = it }, label = { Text("E-Mail" ) })
         TextField(value = password, onValueChange = { password = it }, label = { Text("Password" ) })
         Checkbox(checked = isOwner, onCheckedChange = { isOwner = it} )
-        Button(onClick = { viewModel.register(email, password, isOwner) }) {
+        Button(onClick = { mainViewModel.register(email, password, isOwner) }) {
             Text("Register")
         }
     }

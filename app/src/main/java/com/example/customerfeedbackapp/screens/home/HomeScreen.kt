@@ -19,13 +19,15 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
-fun HomeScreen(navController: NavController, viewModel: MainViewModel) {
-    val user: User? by viewModel.currentUser.observeAsState(null)
+fun HomeScreen(navController: NavController, mainViewModel: MainViewModel) {
+    val user: User? by mainViewModel.currentUser.observeAsState(null)
 
-    val homeViewModel: HomeViewModel = HomeViewModel()
-    val products: List<Product> by homeViewModel.products.observeAsState(emptyList())
+    val viewModel: HomeViewModel = viewModel()
+    viewModel.getProducts()
+    val products = viewModel.state.value
 
     Scaffold(floatingActionButton = {
         //if (user != null) {

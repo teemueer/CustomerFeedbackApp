@@ -1,5 +1,6 @@
 package com.example.customerfeedbackapp.screens.new_product
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.KeyboardOptions
@@ -12,22 +13,28 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.customerfeedbackapp.MainViewModel
 import com.example.customerfeedbackapp.models.Product
+import com.example.customerfeedbackapp.screens.product.ProductViewModel
 
 @Composable
-fun NewProductScreen(navController: NavController, viewModel: NewProductViewModel) {
-    var id by remember { mutableStateOf("") }
-    var name by remember { mutableStateOf("") }
-    var description by remember { mutableStateOf("") }
+fun NewProductScreen(navController: NavController, mainViewModel: MainViewModel) {
+    val viewModel: NewProductViewModel = viewModel()
+    val product = viewModel.state.value
 
-    val product: Product? by viewModel.newProduct.observeAsState(null)
+    Log.d("DBG", "$product")
 
     if (product != null) {
         LaunchedEffect(true) {
             navController.navigate("home")
         }
     }
+
+    var id by remember { mutableStateOf("") }
+    var name by remember { mutableStateOf("") }
+    var description by remember { mutableStateOf("") }
 
     Column {
         Text("New Product", fontSize = 24.sp)
