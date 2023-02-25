@@ -23,8 +23,8 @@ import com.example.customerfeedbackapp.ui.theme.CustomerFeedbackAppTheme
 
 @Composable
 fun HomeScreen(
-    navController: NavController,
-    viewModel: MainViewModel,
+    //navController: NavController,
+    //viewModel: MainViewModel,
     //permissionViewModel: PermissionViewModel
 ) {
     HomeView()
