@@ -15,7 +15,7 @@ data class Aproduct(
     )
 
 class ProductViewModel: ViewModel(){
-    var currentItem  = Aproduct(
+    var currentItem:Aproduct  = Aproduct(
             "RedBull", "A refreshing energy drink",
             "2,70€", false, 0, 9002490207878, R.drawable.stock_rb
     )

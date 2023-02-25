@@ -35,7 +35,7 @@ fun BottomBar(
                     contentDescription = "List "
                 )
             },
-            label = { Text(text = "Home")},
+            label = { Text(text = "Menu")},
             selected = (selectedIndex == 1),
             onClick = {
                 selectedIndex = 1
