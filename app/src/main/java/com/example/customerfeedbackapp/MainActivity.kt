@@ -20,6 +20,7 @@ import com.example.customerfeedbackapp.composables.UiTopAppBar
 import com.example.customerfeedbackapp.permissions.PermissionViewModel
 import com.example.customerfeedbackapp.screens.customer.*
 import com.example.customerfeedbackapp.screens.home.HomeScreen
+import com.example.customerfeedbackapp.screens.home.OwnerHomeScreen
 import com.example.customerfeedbackapp.screens.login.LoginScreen
 import com.example.customerfeedbackapp.screens.settings.SettingsScreen
 import com.example.customerfeedbackapp.ui.theme.CustomerFeedbackAppTheme
@@ -32,7 +33,8 @@ class MainActivity() : ComponentActivity() {
             CustomerFeedbackAppTheme {
                 val permissionViewModel: PermissionViewModel by viewModels<PermissionViewModel>()
                 val productViewModel:ProductViewModel by viewModels<ProductViewModel>()
-                CustomerFeedbackApp(viewModel, permissionViewModel, productViewModel)
+                //CustomerFeedbackApp(viewModel, permissionViewModel, productViewModel)
+                OwnerFeedbackApp(viewModel, permissionViewModel, productViewModel)
             }
         }
     }
@@ -74,6 +76,39 @@ fun CustomerFeedbackApp(viewModel: MainViewModel, permissionViewModel: Permissio
                 }
                 composable(route="SingleProduct"){
                     SingleProduct(productViewModel)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun OwnerFeedbackApp(viewModel: MainViewModel, permissionViewModel: PermissionViewModel, productViewModel: ProductViewModel) {
+    val navController = rememberNavController()
+    Scaffold(
+
+        floatingActionButton = { UiFab(navController, viewModel)
+        },
+        topBar = { UiTopAppBar(navController, viewModel) },
+        bottomBar = { BottomBar(navController) }
+
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
+        )
+        {
+            NavHost(navController, startDestination = "home") {
+                composable(route = "home") {
+                    OwnerHomeScreen()
+                }
+                composable(route = "settings") {
+                    SettingsScreen(navController, viewModel)
+                }
+                composable(route = "login") {
+                    LoginScreen(navController, viewModel)
                 }
             }
         }
