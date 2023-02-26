@@ -18,6 +18,7 @@ import com.example.customerfeedbackapp.composables.BottomBar
 import com.example.customerfeedbackapp.composables.UiFab
 import com.example.customerfeedbackapp.composables.UiTopAppBar
 import com.example.customerfeedbackapp.permissions.PermissionViewModel
+import com.example.customerfeedbackapp.screens.camera.CameraView
 import com.example.customerfeedbackapp.screens.customer.*
 import com.example.customerfeedbackapp.screens.home.HomeScreen
 import com.example.customerfeedbackapp.screens.login.LoginScreen
@@ -80,6 +81,9 @@ fun CustomerFeedbackApp(viewModel: MainViewModel, permissionViewModel: Permissio
                 }
                 composable(route="FeedbackFormView"){
                     FeedbackFormView(productViewModel)
+                }
+                composable(route="CameraView"){
+                    CameraView()
                 }
             }
         }
