@@ -37,7 +37,7 @@ class ProductViewModel: ViewModel(){
         listOfProducts.add(
             Aproduct(
                 "RedBull3", "A refreshing energy drink",
-                "2,70€", false, 0, 641360000822, R.drawable.stock_rb
+                "2,70€", false, 0, 6413600000822, R.drawable.stock_rb
             )
         )
         listOfProducts.add(

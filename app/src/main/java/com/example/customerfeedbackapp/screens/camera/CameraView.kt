@@ -40,8 +40,7 @@ fun CameraView(productViewModel: ProductViewModel, navController: NavController)
     var code by remember {
         mutableStateOf("")
     }
-
-    var products = productViewModel.getProducts()
+    val products = productViewModel.getProducts()
 
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -65,7 +64,7 @@ fun CameraView(productViewModel: ProductViewModel, navController: NavController)
     LaunchedEffect(key1 = true) {
         launcher.launch(Manifest.permission.CAMERA)
     }
-    Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(modifier = Modifier.fillMaxSize()) {
         if (hasCamPermission) {
             AndroidView(
                 factory = { context ->
@@ -88,9 +87,9 @@ fun CameraView(productViewModel: ProductViewModel, navController: NavController)
                         ContextCompat.getMainExecutor(context),
                         QrAnalyzer { result ->
                             code = result
-                            for(code in products){
-                                if(code.barcode.toString() == result){
-                                    productViewModel.currentItem = code
+                            for(barcode in products){
+                                if(barcode.barcode.toString().contains(result)){
+                                    productViewModel.currentItem = barcode
                                     navController.navigate("FeedbackFormView")
                                 }
                             }
@@ -108,7 +107,7 @@ fun CameraView(productViewModel: ProductViewModel, navController: NavController)
                     }
                     previewView
                 },
-                modifier = Modifier.weight(1f)
+                //modifier = Modifier.weight(1f)
             )
             Text(
                 text = code,
@@ -119,7 +118,5 @@ fun CameraView(productViewModel: ProductViewModel, navController: NavController)
                     .padding(32.dp)
             )
         }
-
-
     }
 }
