@@ -2,6 +2,7 @@ package com.example.customerfeedbackapp.screens.camera
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.util.Log
 import android.util.Size
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -10,13 +11,20 @@ import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Button
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowLeft
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.font.FontWeight
@@ -24,12 +32,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
+import androidx.navigation.NavController
+import com.example.customerfeedbackapp.screens.customer.ProductViewModel
 
 @Composable
-fun CameraView(){
+fun CameraView(productViewModel: ProductViewModel, navController: NavController) {
     var code by remember {
         mutableStateOf("")
     }
+
+    var products = productViewModel.getProducts()
+
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
     val cameraProviderFuture = remember {
@@ -52,7 +65,7 @@ fun CameraView(){
     LaunchedEffect(key1 = true) {
         launcher.launch(Manifest.permission.CAMERA)
     }
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         if (hasCamPermission) {
             AndroidView(
                 factory = { context ->
@@ -75,6 +88,12 @@ fun CameraView(){
                         ContextCompat.getMainExecutor(context),
                         QrAnalyzer { result ->
                             code = result
+                            for(code in products){
+                                if(code.barcode.toString() == result){
+                                    productViewModel.currentItem = code
+                                    navController.navigate("FeedbackFormView")
+                                }
+                            }
                         }
                     )
                     try {
@@ -100,5 +119,7 @@ fun CameraView(){
                     .padding(32.dp)
             )
         }
+
+
     }
 }

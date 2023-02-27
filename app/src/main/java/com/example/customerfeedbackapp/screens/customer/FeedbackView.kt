@@ -8,18 +8,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.customerfeedbackapp.permissions.PermissionViewModel
+import com.example.customerfeedbackapp.screens.camera.CameraView
 
 @Composable
-fun FeedbackView(productViewModel: ProductViewModel,  permissionViewModel: PermissionViewModel, navController: NavController){
+fun FeedbackView(productViewModel: ProductViewModel, navController: NavController){
     val textState = remember { mutableStateOf(TextFieldValue("")) }
     val viewModel = viewModel<PermissionViewModel>()
 
@@ -32,20 +31,23 @@ fun FeedbackView(productViewModel: ProductViewModel,  permissionViewModel: Permi
             )
         }
     )
-
     Column(modifier = Modifier
         .padding(16.dp)
         .fillMaxSize()) {
-        Text(text = "Leave deedback about a product by either selecting an item from the list or")
-        Text(text = "scanning the barcode using the camera on your device!")
-        Button(onClick = {
-            cameraPermissionresultLauncher.launch(
-                Manifest.permission.CAMERA
-            )
-        }) {
-            Text(text = "Open camera")
-        }
-        SearchView(state = textState )
-        ProductList(navController = navController, productViewModel = productViewModel, state = textState, true)
+            Text(text = "Leave deedback about a product by either selecting an item from the list or")
+            Text(text = "scanning the barcode using the camera on your device!")
+            Button(onClick = {
+                cameraPermissionresultLauncher.launch(
+                    Manifest.permission.CAMERA
+                )
+                navController.navigate("CameraView")
+            }) {
+                Text(text = "Open camera")
+            }
+            SearchView(state = textState )
+            ProductList(navController = navController, productViewModel = productViewModel, state = textState, true)
+
+
+
     }
 }

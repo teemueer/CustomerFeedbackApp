@@ -77,13 +77,13 @@ fun CustomerFeedbackApp(viewModel: MainViewModel, permissionViewModel: Permissio
                     SingleProduct(productViewModel, navController)
                 }
                 composable(route="FeedbackView"){
-                    FeedbackView(productViewModel, permissionViewModel, navController)
+                    FeedbackView(productViewModel, navController)
                 }
                 composable(route="FeedbackFormView"){
                     FeedbackFormView(productViewModel)
                 }
                 composable(route="CameraView"){
-                    CameraView()
+                    CameraView(productViewModel, navController)
                 }
             }
         }
