@@ -25,7 +25,8 @@ fun ProductScreen(navController: NavController, mainViewModel: MainViewModel) {
     val viewModel: ProductViewModel = viewModel()
 
     if (mainViewModel.currentUser.value == null) {
-        RateProduct(viewModel)
+       //RateProduct(viewModel)
+        RateProductText(viewModel)
     } else {
         EditProduct(viewModel)
     }
@@ -38,14 +39,35 @@ fun RateProduct(viewModel: ProductViewModel) {
     Column {
         Text("Feedback for ${product?.name}", fontSize = 24.sp)
         Row {
+           /*
             for (i in 1..5) {
                 Button(onClick = { viewModel.rate(i) }) {
                     Text("$i", fontSize = 24.sp)
                 }
             }
+
+            */
         }
     }
 }
+
+@Composable
+fun RateProductText(viewModel: ProductViewModel){
+    val product = viewModel.state.value
+    var feedback by remember { mutableStateOf("") }
+    Column() {
+        Text(text = "Leave feedback of ${product?.name}", fontSize = 20.sp)
+        TextField(value = feedback, onValueChange = { feedback = it }, label = { Text("Type feedback here!" ) },
+            modifier = Modifier.height(120.dp))
+        Button(onClick = {
+            viewModel.rate(feedback)
+        }) {
+            Text("Send Feedback!")
+        }
+    }
+}
+
+
 
 @Composable
 fun EditProduct(viewModel: ProductViewModel) {

@@ -5,15 +5,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.example.customerfeedbackapp.models.Feedback
-import com.example.customerfeedbackapp.models.Product
+import com.example.customerfeedbackapp.models.*
 import com.google.firebase.firestore.FirebaseFirestore
 
 class ProductViewModel(private val stateHandle: SavedStateHandle): ViewModel() {
     private var firestore = FirebaseFirestore.getInstance()
     private var id: Int = 0
-    var state = mutableStateOf<Product?>(null)
+    //var state = mutableStateOf<Product?>(null)
+    var state = mutableStateOf<ProductBeta?>(null)
 
+    /*
     init {
         Log.d("DBG", "ProductViewModel init")
 
@@ -23,6 +24,19 @@ class ProductViewModel(private val stateHandle: SavedStateHandle): ViewModel() {
 
         ref.addOnSuccessListener { state.value = it.documents[0].toObject(Product::class.java) }
     }
+     */
+
+    init{
+        Log.d("DBG", "ProductViewModel init")
+        id = stateHandle.get<Int>("product_id") ?: 0
+        val handle = firestore.collection("products_beta")
+        val ref = handle.whereEqualTo("id", id).get()
+
+        ref.addOnSuccessListener { state.value = it.documents[0].toObject(ProductBeta::class.java) }
+    }
+
+
+
 
     fun update(name: String, description: String) {
         val handle = firestore.collection("products")
@@ -35,6 +49,7 @@ class ProductViewModel(private val stateHandle: SavedStateHandle): ViewModel() {
         }
     }
 
+    /*
     fun rate(rating: Int) {
         val handle = firestore.collection("products")
         val ref = handle.whereEqualTo("id", id).get()
@@ -45,4 +60,18 @@ class ProductViewModel(private val stateHandle: SavedStateHandle): ViewModel() {
             handle.document(it.documents[0].id).update("feedback", feedback)
         }
     }
+     */
+
+    fun rate(rating: String) {
+        val handle = firestore.collection("products_beta")
+        val ref = handle.whereEqualTo("id", id).get()
+        ref.addOnSuccessListener {
+            val feedback = state.value?.feedbackArray
+            feedback?.add(BetaFeedback(rating))
+            Log.d("DBG", "$feedback")
+            handle.document(it.documents[0].id).update("feedback", feedback)
+        }
+    }
+
+
 }

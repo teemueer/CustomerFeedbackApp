@@ -26,8 +26,10 @@ fun HomeScreen(navController: NavController, mainViewModel: MainViewModel) {
     val user: User? by mainViewModel.currentUser.observeAsState(null)
 
     val viewModel: HomeViewModel = viewModel()
-    viewModel.getProducts()
-    val products = viewModel.state.value
+    //viewModel.getProducts()
+    viewModel.getProducts_v2()
+    //val products = viewModel.state.value
+    val products = viewModel.state2.value
 
     Scaffold(floatingActionButton = {
         //if (user != null) {
