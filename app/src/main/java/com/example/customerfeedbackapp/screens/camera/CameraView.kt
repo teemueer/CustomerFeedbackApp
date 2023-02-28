@@ -40,7 +40,7 @@ fun CameraView(productViewModel: ProductViewModel, navController: NavController)
     var code by remember {
         mutableStateOf("")
     }
-    val products = productViewModel.getProducts()
+    val products = productViewModel.state
 
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -88,7 +88,7 @@ fun CameraView(productViewModel: ProductViewModel, navController: NavController)
                         QrAnalyzer { result ->
                             code = result
                             for(barcode in products){
-                                if(barcode.barcode.toString().contains(result)){
+                                if(barcode.EAN.contains(result)){
                                     productViewModel.currentItem = barcode
                                     navController.navigate("FeedbackFormView")
                                 }

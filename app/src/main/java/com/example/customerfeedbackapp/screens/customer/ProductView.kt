@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.customerfeedbackapp.R
+import com.example.customerfeedbackapp.models.Product
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -50,7 +51,7 @@ fun ProductsView(navController: NavController, productViewModel: ProductViewMode
 
 @Composable
 fun ProductItem(
-    product: Aproduct,
+    product: Product,
     navController: NavController,
     productViewModel: ProductViewModel,
     isFeedback:Boolean,
@@ -77,7 +78,7 @@ fun ProductItem(
             horizontalArrangement = Arrangement.SpaceEvenly,
         ) {
             Image(
-                painter = painterResource(id = product.productImage),
+                painter = painterResource(id = R.drawable.stock_rb),
                 contentDescription = "A redbull",
                 modifier = Modifier
                     .size(50.dp)
@@ -100,16 +101,16 @@ fun ProductList(
     state: MutableState<TextFieldValue>,
     isFeedback:Boolean,
 ) {
-    val listOfProducts = productViewModel.getProducts()
-    var filteredList: ArrayList<Aproduct>
+    //val listOfProducts = productViewModel.getProducts()
+    var filteredList: ArrayList<Product>
 
     LazyColumn(modifier = Modifier.fillMaxWidth()) {
         val searchedText = state.value.text
         filteredList = if (searchedText.isEmpty()) {
-            listOfProducts
+            productViewModel.state
         } else {
-            val resultList = ArrayList<Aproduct>()
-            for (product in listOfProducts) {
+            val resultList = ArrayList<Product>()
+            for (product in productViewModel.state) {
                 if (product.name.lowercase(Locale.getDefault())
                         .contains(searchedText.lowercase(Locale.getDefault()))
                 ) {

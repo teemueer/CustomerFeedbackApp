@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.customerfeedbackapp.R
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.customerfeedbackapp.ui.theme.CustomerFeedbackAppTheme
@@ -25,17 +26,17 @@ fun SingleProduct(productViewModel: ProductViewModel, navController: NavHostCont
     ) {
 
         Row {
-            Image(painter = painterResource(id = product.productImage), contentDescription = "")
+            Image(painter = painterResource(id = R.drawable.stock_rb), contentDescription = "")
             Spacer(modifier = Modifier.padding(horizontal = 8.dp))
             Column {
                 Text(
                     text = product.name,
                     style = MaterialTheme.typography.h5.copy(fontWeight = FontWeight.ExtraBold)
                 )
-                Text(text = product.barcode.toString(), style = MaterialTheme.typography.caption)
+                Text(text = product.EAN.toString(), style = MaterialTheme.typography.caption)
                 Spacer(modifier = Modifier.padding(vertical = 10.dp))
                 Text(
-                    text = product.price + " " + if (product.kiloOrPer) "Kilo" else "Kpl",
+                    text = product.price + " " + if (product.kiloOrKpl) "Kilo" else "Kpl",
                     style = MaterialTheme.typography.h5.copy(fontWeight = FontWeight.ExtraBold)
                 )
             }

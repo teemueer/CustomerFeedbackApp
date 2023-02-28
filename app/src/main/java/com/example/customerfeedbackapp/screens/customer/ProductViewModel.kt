@@ -1,149 +1,24 @@
 package com.example.customerfeedbackapp.screens.customer
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.customerfeedbackapp.R
+import com.example.customerfeedbackapp.models.Product
+import com.google.firebase.firestore.FirebaseFirestore
 
-data class Aproduct(
-    val name: String,
-    val description: String,
-    val price: String,
-    val kiloOrPer: Boolean,
-    val category: Int,
-    val barcode: Long,
-    val productImage: Int,
-
-    )
 
 class ProductViewModel: ViewModel(){
-    var currentItem:Aproduct  = Aproduct(
-            "RedBull", "A refreshing energy drink",
-            "2,70€", false, 0, 9002490207878, R.drawable.stock_rb
-    )
+    var currentItem:Product  = Product()
+    private var firestore = FirebaseFirestore.getInstance()
+    var state = ArrayList<Product>()
 
-    fun getProducts(): ArrayList<Aproduct> {
-        val listOfProducts = ArrayList<Aproduct>()
-        listOfProducts.add(
-            Aproduct(
-                "RedBull2", "A refreshing energy drink",
-                "2,70€", false, 0, 9002490207878, R.drawable.stock_rb
-            )
-        )
-        listOfProducts.add(
-            Aproduct(
-                "RedBull1", "A refreshing energy drink",
-                "2,70€", false, 0, 9002490207878, R.drawable.stock_rb
-            )
-        )
-        listOfProducts.add(
-            Aproduct(
-                "RedBull3", "A refreshing energy drink",
-                "2,70€", false, 0, 6413600000822, R.drawable.stock_rb
-            )
-        )
-        listOfProducts.add(
-            Aproduct(
-                "RedBull", "A refreshing energy drink",
-                "2,70€", false, 0, 9002490207878, R.drawable.stock_rb
-            )
-        )
-        listOfProducts.add(
-            Aproduct(
-                "RedBull", "A refreshing energy drink",
-                "2,70€", false, 0, 9002490207878, R.drawable.stock_rb
-            )
-        )
-        listOfProducts.add(
-            Aproduct(
-                "RedBull", "A refreshing energy drink",
-                "2,70€", false, 0, 9002490207878, R.drawable.stock_rb
-            )
-        )
-        listOfProducts.add(
-            Aproduct(
-                "RedBull", "A refreshing energy drink",
-                "2,70€", false, 0, 9002490207878, R.drawable.stock_rb
-            )
-        )
-        listOfProducts.add(
-            Aproduct(
-                "RedBull", "A refreshing energy drink",
-                "2,70€", false, 0, 9002490207878, R.drawable.stock_rb
-            )
-        )
-        listOfProducts.add(
-            Aproduct(
-                "RedBull", "A refreshing energy drink",
-                "2,70€", false, 0, 9002490207878, R.drawable.stock_rb
-            )
-        )
-        listOfProducts.add(
-            Aproduct(
-                "RedBull", "A refreshing energy drink",
-                "2,70€", false, 0, 9002490207878, R.drawable.stock_rb
-            )
-        )
-        listOfProducts.add(
-            Aproduct(
-                "RedBull", "A refreshing energy drink",
-                "2,70€", false, 0, 9002490207878, R.drawable.stock_rb
-            )
-        )
-        listOfProducts.add(
-            Aproduct(
-                "RedBull", "A refreshing energy drink",
-                "2,70€", false, 0, 9002490207878, R.drawable.stock_rb
-            )
-        )
-        listOfProducts.add(
-            Aproduct(
-                "RedBull", "A refreshing energy drink",
-                "2,70€", false, 0, 9002490207878, R.drawable.stock_rb
-            )
-        )
-        listOfProducts.add(
-            Aproduct(
-                "RedBull", "A refreshing energy drink",
-                "2,70€", false, 0, 9002490207878, R.drawable.stock_rb
-            )
-        )
-        listOfProducts.add(
-            Aproduct(
-                "RedBull", "A refreshing energy drink",
-                "2,70€", false, 0, 9002490207878, R.drawable.stock_rb
-            )
-        )
-        listOfProducts.add(
-            Aproduct(
-                "RedBull", "A refreshing energy drink",
-                "2,70€", false, 0, 9002490207878, R.drawable.stock_rb
-            )
-        )
-        listOfProducts.add(
-            Aproduct(
-                "RedBull", "A refreshing energy drink",
-                "2,70€", false, 0, 9002490207878, R.drawable.stock_rb
-            )
-        )
-        listOfProducts.add(
-            Aproduct(
-                "RedBull", "A refreshing energy drink",
-                "2,70€", false, 0, 9002490207878, R.drawable.stock_rb
-            )
-        )
-        listOfProducts.add(
-            Aproduct(
-                "RedBull", "A refreshing energy drink",
-                "2,70€", false, 0, 9002490207878, R.drawable.stock_rb
-            )
-        )
-        listOfProducts.add(
-            Aproduct(
-                "RedBull", "A refreshing energy drink",
-                "2,70€", false, 0, 9002490207878, R.drawable.stock_rb
-            )
-        )
-
-        return listOfProducts
+    fun getProducts_v2(){
+        val handle = firestore.collection("products_beta").get()
+        handle.addOnSuccessListener {
+            for(product_beta in it.documents){
+                product_beta.toObject(Product::class.java)?.let { state.add(it) }
+            }
+        }
     }
 }
 

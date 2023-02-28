@@ -33,6 +33,7 @@ class MainActivity() : ComponentActivity() {
             CustomerFeedbackAppTheme {
                 val permissionViewModel: PermissionViewModel by viewModels<PermissionViewModel>()
                 val productViewModel:ProductViewModel by viewModels<ProductViewModel>()
+                productViewModel.getProducts_v2()
                 CustomerFeedbackApp(viewModel, permissionViewModel, productViewModel)
             }
         }
