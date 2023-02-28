@@ -33,15 +33,21 @@ class MainActivity() : ComponentActivity() {
             CustomerFeedbackAppTheme {
                 val permissionViewModel: PermissionViewModel by viewModels<PermissionViewModel>()
                 val productViewModel:ProductViewModel by viewModels<ProductViewModel>()
+                val formViewModel:FormViewModel by viewModels<FormViewModel>()
                 productViewModel.getProducts()
-                CustomerFeedbackApp(viewModel, permissionViewModel, productViewModel)
+                CustomerFeedbackApp(viewModel, permissionViewModel, productViewModel, formViewModel)
             }
         }
     }
 }
 
 @Composable
-fun CustomerFeedbackApp(viewModel: MainViewModel, permissionViewModel: PermissionViewModel, productViewModel: ProductViewModel) {
+fun CustomerFeedbackApp(
+    viewModel: MainViewModel,
+    permissionViewModel: PermissionViewModel,
+    productViewModel: ProductViewModel,
+    formViewModel: FormViewModel,
+) {
     val navController = rememberNavController()
     Scaffold(
 
@@ -81,7 +87,7 @@ fun CustomerFeedbackApp(viewModel: MainViewModel, permissionViewModel: Permissio
                     FeedbackView(productViewModel, navController)
                 }
                 composable(route="FeedbackFormView"){
-                    FeedbackFormView(productViewModel)
+                    FeedbackFormView(productViewModel, formViewModel)
                 }
                 composable(route="CameraView"){
                     CameraView(productViewModel, navController)

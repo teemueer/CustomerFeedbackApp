@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun FeedbackFormView(productViewModel: ProductViewModel){
+fun FeedbackFormView(productViewModel: ProductViewModel, formViewModel: FormViewModel){
     var feedback by remember { mutableStateOf("") }
     Column(){
         Text(text = productViewModel.currentItem.name )
@@ -21,7 +21,7 @@ fun FeedbackFormView(productViewModel: ProductViewModel){
                 .height(120.dp)
                 .widthIn(min = 100.dp, max = 150.dp))
         Button(onClick = {
-           // productViewModel.rate(feedback)
+            formViewModel.rate(feedback, productViewModel.currentItem.id)
         }) {
             Text(text = "Send Feedback!")
         }
