@@ -10,6 +10,6 @@ data class Product(
     val product_info: String ="",
     val type_id: Int = 0,
     val type_name: String = "",
-    val feedbackArray: MutableList<BetaFeedback> = mutableListOf<BetaFeedback>()
+    val feedbackArray: MutableList<Feedback> = mutableListOf<Feedback>()
 
 ){}

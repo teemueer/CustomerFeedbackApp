@@ -102,12 +102,13 @@ fun ProductList(
     isFeedback:Boolean,
 ) {
     //val listOfProducts = productViewModel.getProducts()
-    var filteredList: ArrayList<Product>
+    var filteredList: List<Product>
 
     LazyColumn(modifier = Modifier.fillMaxWidth()) {
         val searchedText = state.value.text
         filteredList = if (searchedText.isEmpty()) {
-            productViewModel.state
+            //productViewModel.state
+            productViewModel.fb.value
         } else {
             val resultList = ArrayList<Product>()
             for (product in productViewModel.state) {

@@ -1,3 +1,3 @@
 package com.example.customerfeedbackapp.models
 
-data class BetaFeedback(val rating:String =""){}
+data class Feedback(val rating:String =""){}

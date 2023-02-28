@@ -1,14 +1,29 @@
 package com.example.customerfeedbackapp.screens.customer
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.material.Button
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material.TextField
+import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun FeedbackFormView(productViewModel: ProductViewModel){
+    var feedback by remember { mutableStateOf("") }
     Column(){
         Text(text = productViewModel.currentItem.name )
-        Text(text = productViewModel.currentItem.description)
-        Text(text = productViewModel.currentItem.price)
+        TextField(value = feedback, onValueChange = {feedback = it},
+        label = { Text(text = "Leave feedback here!")}, modifier =
+            Modifier
+                .height(120.dp)
+                .widthIn(min = 100.dp, max = 150.dp))
+        Button(onClick = {
+           // productViewModel.rate(feedback)
+        }) {
+            Text(text = "Send Feedback!")
+        }
     }
 }
