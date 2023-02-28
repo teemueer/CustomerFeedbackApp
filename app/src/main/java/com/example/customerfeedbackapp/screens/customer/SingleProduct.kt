@@ -26,7 +26,8 @@ fun SingleProduct(productViewModel: ProductViewModel, navController: NavHostCont
     ) {
 
         Row {
-            Image(painter = painterResource(id = R.drawable.stock_rb), contentDescription = "")
+
+            Image(painter = painterResource(id = product.imageId), contentDescription = "")
             Spacer(modifier = Modifier.padding(horizontal = 8.dp))
             Column {
                 Text(

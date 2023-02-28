@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Scaffold
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
@@ -17,7 +17,6 @@ import androidx.navigation.compose.rememberNavController
 import com.example.customerfeedbackapp.composables.BottomBar
 import com.example.customerfeedbackapp.composables.UiFab
 import com.example.customerfeedbackapp.composables.UiTopAppBar
-import com.example.customerfeedbackapp.permissions.PermissionViewModel
 import com.example.customerfeedbackapp.screens.camera.CameraView
 import com.example.customerfeedbackapp.screens.customer.*
 import com.example.customerfeedbackapp.screens.home.HomeScreen
@@ -25,17 +24,16 @@ import com.example.customerfeedbackapp.screens.login.LoginScreen
 import com.example.customerfeedbackapp.screens.settings.SettingsScreen
 import com.example.customerfeedbackapp.ui.theme.CustomerFeedbackAppTheme
 
-class MainActivity() : ComponentActivity() {
-    private val viewModel: MainViewModel by viewModels<MainViewModel>()
+class MainActivity : ComponentActivity() {
+    private val viewModel: MainViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             CustomerFeedbackAppTheme {
-                val permissionViewModel: PermissionViewModel by viewModels<PermissionViewModel>()
-                val productViewModel:ProductViewModel by viewModels<ProductViewModel>()
-                val formViewModel:FormViewModel by viewModels<FormViewModel>()
+                val productViewModel:ProductViewModel by viewModels()
+                val formViewModel:FormViewModel by viewModels()
                 productViewModel.getProducts()
-                CustomerFeedbackApp(viewModel, permissionViewModel, productViewModel, formViewModel)
+                CustomerFeedbackApp(viewModel, productViewModel, formViewModel)
             }
         }
     }
@@ -44,7 +42,6 @@ class MainActivity() : ComponentActivity() {
 @Composable
 fun CustomerFeedbackApp(
     viewModel: MainViewModel,
-    permissionViewModel: PermissionViewModel,
     productViewModel: ProductViewModel,
     formViewModel: FormViewModel,
 ) {
@@ -75,7 +72,7 @@ fun CustomerFeedbackApp(
                     LoginScreen(navController, viewModel)
                 }
                 composable(route="ItemMenu"){
-                    ItemMenu(navController, viewModel)
+                    ItemMenu(navController)
                 }
                 composable(route="ProductsView"){
                     ProductsView(navController, productViewModel)

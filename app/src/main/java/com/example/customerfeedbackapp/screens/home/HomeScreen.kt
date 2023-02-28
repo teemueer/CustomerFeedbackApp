@@ -1,5 +1,6 @@
 package com.example.customerfeedbackapp.screens.home
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -122,6 +123,10 @@ fun StoreOCPreview() {
         }
     }
 }
+
+
+
+
 
 
 @Preview(showBackground = true, widthDp = 400)

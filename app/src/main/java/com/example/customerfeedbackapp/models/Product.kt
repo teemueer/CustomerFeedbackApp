@@ -8,6 +8,7 @@ data class Product(
     val name: String = "",
     val price: String ="",
     val product_info: String ="",
+    val imageId: Int  = 0,
     val type_id: Int = 0,
     val type_name: String = "",
     val feedbackArray: MutableList<Feedback> = mutableListOf<Feedback>()
