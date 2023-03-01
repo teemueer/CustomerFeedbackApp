@@ -1,9 +1,11 @@
 package com.example.customerfeedbackapp.screens.home
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -20,16 +22,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.rememberAsyncImagePainter
 
 @Composable
 fun HomeScreen(navController: NavController, mainViewModel: MainViewModel) {
     val user: User? by mainViewModel.currentUser.observeAsState(null)
 
     val viewModel: HomeViewModel = viewModel()
-    //viewModel.getProducts()
-    viewModel.getProducts_v2()
-    //val products = viewModel.state.value
-    val products = viewModel.state2.value
+    viewModel.getProducts()
+    //viewModel.getProducts_v2()
+    val products = viewModel.state.value
+    //val products = viewModel.state2.value
 
     Scaffold(floatingActionButton = {
         //if (user != null) {
@@ -48,9 +51,18 @@ fun HomeScreen(navController: NavController, mainViewModel: MainViewModel) {
             LazyColumn {
                 items(products) { product ->
                     Card(modifier = Modifier.padding(16.dp)) {
-                        Column(modifier = Modifier.clickable { navController.navigate("products/${product.id}") }) {
-                            Text(product.name, fontSize = 24.sp)
-                            Text(product.description)
+                        Row {
+                            product.images?.first().let {
+                                Image(
+                                    painter = rememberAsyncImagePainter(it),
+                                    contentDescription = null,
+                                    modifier = Modifier.size(64.dp)
+                                )
+                            }
+                            Column(modifier = Modifier.clickable { navController.navigate("products/${product.ean}") }) {
+                                Text(product.title ?: "", fontSize = 24.sp)
+                                Text(product.description ?: "")
+                            }
                         }
                     }
                 }

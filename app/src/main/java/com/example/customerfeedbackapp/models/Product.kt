@@ -1,9 +1,11 @@
 package com.example.customerfeedbackapp.models
 
 data class Product(
-    val id: Int = 0,
-    val name: String = "",
-    val description: String = "",
+    val ean: String? = null,
+    val title: String? = null,
+    val manufacturer: String? = null,
+    val description: String? = null,
+    val images: List<String>? = null,
     val feedback: MutableList<Feedback> = mutableListOf<Feedback>()
 ) {}
 

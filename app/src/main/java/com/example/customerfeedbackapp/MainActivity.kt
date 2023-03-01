@@ -50,8 +50,8 @@ fun CustomerFeedbackApp(mainViewModel: MainViewModel) {
             NewProductScreen(navController, mainViewModel)
         }
         composable(
-            route = "products/{product_id}",
-            arguments = listOf(navArgument("product_id") { type = NavType.IntType })
+            route = "products/{ean}",
+            arguments = listOf(navArgument("ean") { type = NavType.StringType })
         ) {
             ProductScreen(navController, mainViewModel)
         }
