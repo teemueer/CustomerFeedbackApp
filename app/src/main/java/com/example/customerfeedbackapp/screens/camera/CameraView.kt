@@ -64,7 +64,7 @@ fun CameraView(productViewModel: ProductViewModel, navController: NavController)
     LaunchedEffect(key1 = true) {
         launcher.launch(Manifest.permission.CAMERA)
     }
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier.fillMaxHeight().fillMaxWidth()) {
         if (hasCamPermission) {
             AndroidView(
                 factory = { context ->
@@ -106,9 +106,9 @@ fun CameraView(productViewModel: ProductViewModel, navController: NavController)
                         e.printStackTrace()
                     }
                     previewView
-                },
-                //modifier = Modifier.weight(1f)
+                }, modifier = Modifier.fillMaxSize()
             )
+            /*
             Text(
                 text = code,
                 fontSize = 20.sp,
@@ -117,6 +117,8 @@ fun CameraView(productViewModel: ProductViewModel, navController: NavController)
                     .fillMaxWidth()
                     .padding(32.dp)
             )
+
+             */
         }
     }
 }

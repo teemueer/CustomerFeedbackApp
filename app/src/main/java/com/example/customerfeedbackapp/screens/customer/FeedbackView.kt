@@ -3,14 +3,17 @@ package com.example.customerfeedbackapp.screens.customer
 import android.Manifest
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
@@ -18,35 +21,49 @@ import com.example.customerfeedbackapp.permissions.PermissionViewModel
 import com.example.customerfeedbackapp.screens.camera.CameraView
 
 @Composable
-fun FeedbackView(productViewModel: ProductViewModel, navController: NavController){
+fun FeedbackView(productViewModel: ProductViewModel, navController: NavController) {
     val textState = remember { mutableStateOf(TextFieldValue("")) }
     val viewModel = viewModel<PermissionViewModel>()
 
     val cameraPermissionresultLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission(),
-        onResult = {isGranted ->
+        onResult = { isGranted ->
             viewModel.onPermissionResult(
                 permission = Manifest.permission.CAMERA,
                 isGranted = isGranted
             )
         }
     )
-    Column(modifier = Modifier
-        .padding(16.dp)
-        .fillMaxSize()) {
-            Text(text = "Leave deedback about a product by either selecting an item from the list or")
-            Text(text = "scanning the barcode using the camera on your device!")
-            Button(onClick = {
-                cameraPermissionresultLauncher.launch(
-                    Manifest.permission.CAMERA
+    Column(
+        modifier = Modifier
+            .padding(16.dp)
+            .fillMaxSize()
+    ) {
+        Column() {
+            Text(text = "Jätä palautetta valitsemalla tuote, tai skannaamalla tuotteen viivakoodi laitteesi kameralla",
                 )
-                navController.navigate("CameraView")
-            }) {
-                Text(text = "Open camera")
-            }
-            SearchView(state = textState )
-            ProductList(navController = navController, productViewModel = productViewModel, state = textState, true)
+        }
+        Spacer(modifier = Modifier.height(10.dp))
+        SearchView(state = textState)
+        Button(onClick = {
+            cameraPermissionresultLauncher.launch(
+                Manifest.permission.CAMERA
+            )
+            navController.navigate("CameraView")
+        }, modifier = Modifier.fillMaxWidth()) {
+            Text(text = "Open camera")
+        }
+        Column(modifier = Modifier
+            .heightIn(min = Dp.Unspecified, max = 550.dp)
+            .padding(bottom = 10.dp)) {
+            ProductList(
+                navController = navController,
+                productViewModel = productViewModel,
+                state = textState,
+                true
+            )
 
+        }
 
 
     }
