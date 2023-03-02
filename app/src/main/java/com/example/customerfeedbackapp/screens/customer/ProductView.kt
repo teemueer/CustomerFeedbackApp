@@ -30,8 +30,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import coil.compose.rememberAsyncImagePainter
 import com.example.customerfeedbackapp.R
 import com.example.customerfeedbackapp.models.Product
+import com.example.customerfeedbackapp.models.Product2
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -55,7 +57,7 @@ fun ProductsView(navController: NavController, productViewModel: ProductViewMode
 
 @Composable
 fun ProductItem(
-    product: Product,
+    product: Product2,
     navController: NavController,
     productViewModel: ProductViewModel,
     isFeedback: Boolean,
@@ -73,26 +75,26 @@ fun ProductItem(
                 .clickable {
                     if (!isFeedback) {
                         navController.navigate("SingleProduct")
-                        productViewModel.currentItem = product
-                        Log.i("arvo", R.drawable.stock_rb.toString())
+                        productViewModel.currentItem2 = product
                     } else {
                         navController.navigate("FeedbackFormView")
-                        productViewModel.currentItem = product
+                        productViewModel.currentItem2 = product
                     }
                 }
                 .padding(10.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceEvenly,
         ) {
-            Image(
-                painter = painterResource(id = product.imageId),
-                contentDescription = "A redbull",
-                modifier = Modifier
-                    .size(80.dp)
-            )
+            product.images?.let{
+                Image(
+                    painter = rememberAsyncImagePainter(it),
+                    contentDescription = null,
+                    modifier = Modifier.size(64.dp)
+                )
+            }
             Spacer(modifier = Modifier.padding(horizontal = 15.dp))
             Column(Modifier.weight(1f)) {
-                Text(text = product.name)
+                Text(text = product.title ?: "")
                 //if(product.description.isNotEmpty())Text(text = product.description)
             }
             Icon(imageVector = Icons.Default.KeyboardArrowRight, contentDescription = "")
@@ -110,7 +112,7 @@ fun ProductList(
     isFeedback: Boolean,
 ) {
     //val listOfProducts = productViewModel.getProducts()
-    var filteredList: List<Product>
+    var filteredList: List<Product2>
 
     LazyColumn(modifier = Modifier.fillMaxWidth().heightIn(min = Dp.Unspecified, max = 625.dp)) {
         val searchedText = state.value.text
@@ -118,12 +120,12 @@ fun ProductList(
             //productViewModel.state
             productViewModel.fb.value
         } else {
-            val resultList = ArrayList<Product>()
-            for (product in productViewModel.state) {
-                if (product.name.lowercase(Locale.getDefault())
+            val resultList = ArrayList<Product2>()
+            for (product2 in productViewModel.state) {
+                if (product2.title!!.lowercase(Locale.getDefault())
                         .contains(searchedText.lowercase(Locale.getDefault()))
                 ) {
-                    resultList.add(product)
+                    resultList.add(product2)
                 }
             }
             resultList

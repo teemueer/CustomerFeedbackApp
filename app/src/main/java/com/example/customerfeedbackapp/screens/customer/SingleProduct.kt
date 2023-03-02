@@ -25,13 +25,15 @@ import com.example.customerfeedbackapp.R
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import coil.compose.rememberAsyncImagePainter
 import com.example.customerfeedbackapp.MainViewModel
 import com.example.customerfeedbackapp.models.Product
+import com.example.customerfeedbackapp.models.Product2
 import com.example.customerfeedbackapp.ui.theme.CustomerFeedbackAppTheme
 
 @Composable
 fun SingleProduct(productViewModel: ProductViewModel, navController: NavHostController) {
-    val product = productViewModel.currentItem
+    val product = productViewModel.currentItem2
     Column(
         horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier
             .fillMaxSize()
@@ -42,40 +44,43 @@ fun SingleProduct(productViewModel: ProductViewModel, navController: NavHostCont
         Spacer(modifier = Modifier.height(20.dp))
         ImageAndPrice(product = product)
         Spacer(modifier = Modifier.padding(vertical = 15.dp))
-        if(product.description.isNotEmpty()) InformationCard(product.description, title = "Tuotekuvaus")
-        if(product.product_info.isNotEmpty()) InformationCard(product.product_info, title = "Tuotetiedot")
+        if(product.description!!.isNotEmpty()) InformationCard(product.description, title = "Tuotekuvaus")
+        //if(product.product_info.isNotEmpty()) InformationCard(product.product_info, title = "Tuotetiedot")
         FeedbackButton(navController = navController)
     }
 }
 
 
 @Composable
-fun ProductTitle(product: Product) {
+fun ProductTitle(product: Product2) {
     Column() {
         Text(
-            text = product.name,
+            text = product.title!!,
             style = MaterialTheme.typography.h5.copy(fontWeight = FontWeight.ExtraBold)
         )
-        Text(text = product.EAN, style = MaterialTheme.typography.caption)
+        Text(text = product.ean!!, style = MaterialTheme.typography.caption)
     }
 }
 
 @Composable
-fun ImageAndPrice(product: Product) {
+fun ImageAndPrice(product: Product2) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
         modifier = Modifier.fillMaxWidth()
     ) {
-        Image(
-            painter = painterResource(id = product.imageId), contentDescription = "",
-            modifier = Modifier.height(210.dp)
-        )
+        product.images?.first().let {
+            Image(
+                painter = rememberAsyncImagePainter(it),
+                contentDescription = null,
+                modifier = Modifier.size(120.dp)
+            )
+        }
         Spacer(modifier = Modifier.width(40.dp))
-        Text(
+       /* Text(
             text = product.price + " " + if (product.kiloOrKpl) "Kilo" else "Kpl",
             style = MaterialTheme.typography.h4.copy(fontWeight = FontWeight.ExtraBold)
-        )
+        )*/
     }
 }
 

@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
             CustomerFeedbackAppTheme {
                 val productViewModel:ProductViewModel by viewModels()
                 val formViewModel:FormViewModel by viewModels()
-                productViewModel.getProducts()
+                productViewModel.getProductsBCAPI()
                 CustomerFeedbackApp(viewModel, productViewModel, formViewModel)
             }
         }

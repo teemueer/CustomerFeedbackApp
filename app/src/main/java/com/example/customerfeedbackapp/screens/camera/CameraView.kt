@@ -88,8 +88,8 @@ fun CameraView(productViewModel: ProductViewModel, navController: NavController)
                         QrAnalyzer { result ->
                             code = result
                             for(barcode in products){
-                                if(barcode.EAN.contains(result)){
-                                    productViewModel.currentItem = barcode
+                                if(barcode.ean!!.contains(result)){
+                                    productViewModel.currentItem2 = barcode
                                     navController.navigate("FeedbackFormView")
                                 }
                             }

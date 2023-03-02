@@ -14,3 +14,12 @@ data class Product(
     val feedbackArray: MutableList<Feedback> = mutableListOf<Feedback>()
 
 ){}
+
+data class Product2(
+    val ean: String? = null,
+    val title: String? = null,
+    val manufacturer: String? = null,
+    val description: String? = null,
+    val images: List<String>? = null,
+    val feedback: MutableList<Feedback> = mutableListOf<Feedback>()
+) {}

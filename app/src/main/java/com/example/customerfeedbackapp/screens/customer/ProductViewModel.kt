@@ -6,17 +6,20 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.customerfeedbackapp.models.Feedback
 import com.example.customerfeedbackapp.models.Product
+import com.example.customerfeedbackapp.models.Product2
 import com.google.firebase.firestore.FirebaseFirestore
 
 
-class ProductViewModel(stateHandle: SavedStateHandle): ViewModel(){
+class ProductViewModel(): ViewModel(){
     var currentItem:Product  = Product()
+    var currentItem2: Product2 = Product2()
     private var firestore = FirebaseFirestore.getInstance()
-    var fb = mutableStateOf<List<Product>>(emptyList())
-    var state = ArrayList<Product>()
-    var testState = mutableStateOf<Product?>(null)
+    var fb = mutableStateOf<List<Product2>>(emptyList())
+    var state = ArrayList<Product2>()
 
 
+
+/*
     fun getProducts(){
         val handle = firestore.collection("products_beta").get()
         handle.addOnSuccessListener {
@@ -32,6 +35,21 @@ class ProductViewModel(stateHandle: SavedStateHandle): ViewModel(){
     }
 
 
+ */
+    fun getProductsBCAPI(){
+        val handle = firestore.collection("products").get()
+        handle.addOnSuccessListener {
+            val _products = ArrayList<Product2>()
+            for (product in it.documents) {
+                product.toObject(Product2::class.java)?.let {
+                    _products.add(it)
+                    state.add(it)
+                }
+            }
+            fb.value = _products
+        }
+        handle.addOnFailureListener { Log.d("DBG", "${it.message}") }
+    }
 
 }
 
