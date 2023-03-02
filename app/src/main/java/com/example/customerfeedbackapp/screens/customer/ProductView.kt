@@ -1,8 +1,6 @@
 package com.example.customerfeedbackapp.screens.customer
 
-import android.util.Log
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -21,21 +19,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import coil.compose.rememberAsyncImagePainter
-import com.example.customerfeedbackapp.R
-import com.example.customerfeedbackapp.models.Product
+import coil.compose.AsyncImage
 import com.example.customerfeedbackapp.models.Product2
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 @Composable
@@ -85,13 +78,8 @@ fun ProductItem(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceEvenly,
         ) {
-            product.images?.let{
-                Image(
-                    painter = rememberAsyncImagePainter(it),
-                    contentDescription = null,
-                    modifier = Modifier.size(64.dp)
-                )
-            }
+            AsyncImage(model = product.images?.first(), contentDescription = "",
+            modifier = Modifier.size(60.dp))
             Spacer(modifier = Modifier.padding(horizontal = 15.dp))
             Column(Modifier.weight(1f)) {
                 Text(text = product.title ?: "")
@@ -114,7 +102,9 @@ fun ProductList(
     //val listOfProducts = productViewModel.getProducts()
     var filteredList: List<Product2>
 
-    LazyColumn(modifier = Modifier.fillMaxWidth().heightIn(min = Dp.Unspecified, max = 625.dp)) {
+    LazyColumn(modifier = Modifier
+        .fillMaxWidth()
+        .heightIn(min = Dp.Unspecified, max = 625.dp)) {
         val searchedText = state.value.text
         filteredList = if (searchedText.isEmpty()) {
             //productViewModel.state

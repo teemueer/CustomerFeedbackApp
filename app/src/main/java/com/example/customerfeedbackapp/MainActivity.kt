@@ -33,9 +33,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             CustomerFeedbackAppTheme {
                 val productViewModel:ProductViewModel by viewModels()
-                val formViewModel:FormViewModel by viewModels()
                 productViewModel.getProductsBCAPI()
-                CustomerFeedbackApp(viewModel, productViewModel, formViewModel)
+                CustomerFeedbackApp(viewModel, productViewModel)
             }
         }
     }
@@ -45,7 +44,6 @@ class MainActivity : ComponentActivity() {
 fun CustomerFeedbackApp(
     viewModel: MainViewModel,
     productViewModel: ProductViewModel,
-    formViewModel: FormViewModel,
 ) {
     val navController = rememberNavController()
     Scaffold(
@@ -86,8 +84,10 @@ fun CustomerFeedbackApp(
                 composable(route="FeedbackView"){
                     FeedbackView(productViewModel, navController)
                 }
-                composable(route="FeedbackFormView"){
-                    FeedbackFormView(productViewModel, formViewModel)
+                composable(
+                    route="FeedbackFormView"
+                ){
+                    FeedbackFormView(productViewModel)
                 }
                 composable(route="CameraView"){
                     CameraView(productViewModel, navController)

@@ -13,7 +13,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.customerfeedbackapp.MainViewModel
 
 @Composable
 fun ItemMenu(
@@ -38,8 +37,7 @@ fun MenuView(navController: NavController,modifier: Modifier = Modifier
 
 @Composable
 fun MenuItem(name:String, navController: NavController){
-    Surface(
-    ) {
+    Surface {
         Card(
             backgroundColor = MaterialTheme.colors.primary,
             modifier = Modifier
@@ -50,7 +48,7 @@ fun MenuItem(name:String, navController: NavController){
         ) {
             Row(modifier = Modifier.padding(20.dp)) {
                 Text(text = name, modifier = Modifier.weight(1f))
-                Icon(imageVector = Icons.Default.KeyboardArrowRight, contentDescription ="",)
+                Icon(imageVector = Icons.Default.KeyboardArrowRight, contentDescription = "")
             }
         }
     }

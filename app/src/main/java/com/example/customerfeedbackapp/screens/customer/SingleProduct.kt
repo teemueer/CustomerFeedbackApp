@@ -1,35 +1,27 @@
 package com.example.customerfeedbackapp.screens.customer
 
-import androidx.activity.viewModels
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.customerfeedbackapp.R
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
-import com.example.customerfeedbackapp.MainViewModel
+import com.example.customerfeedbackapp.R
 import com.example.customerfeedbackapp.models.Product
 import com.example.customerfeedbackapp.models.Product2
-import com.example.customerfeedbackapp.ui.theme.CustomerFeedbackAppTheme
 
 @Composable
 fun SingleProduct(productViewModel: ProductViewModel, navController: NavHostController) {

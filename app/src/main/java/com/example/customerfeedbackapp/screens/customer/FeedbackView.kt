@@ -5,12 +5,10 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.Dp
@@ -18,7 +16,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.customerfeedbackapp.permissions.PermissionViewModel
-import com.example.customerfeedbackapp.screens.camera.CameraView
 
 @Composable
 fun FeedbackView(productViewModel: ProductViewModel, navController: NavController) {
@@ -39,7 +36,7 @@ fun FeedbackView(productViewModel: ProductViewModel, navController: NavControlle
             .padding(16.dp)
             .fillMaxSize()
     ) {
-        Column() {
+        Column {
             Text(text = "Jätä palautetta valitsemalla tuote, tai skannaamalla tuotteen viivakoodi laitteesi kameralla",
                 )
         }

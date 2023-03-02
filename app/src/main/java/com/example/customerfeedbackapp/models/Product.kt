@@ -11,9 +11,9 @@ data class Product(
     val imageId: Int  = 0,
     val type_id: Int = 0,
     val type_name: String = "",
-    val feedbackArray: MutableList<Feedback> = mutableListOf<Feedback>()
+    val feedbackArray: MutableList<Feedback> = mutableListOf()
 
-){}
+)
 
 data class Product2(
     val ean: String? = null,
@@ -21,5 +21,5 @@ data class Product2(
     val manufacturer: String? = null,
     val description: String? = null,
     val images: List<String>? = null,
-    val feedback: MutableList<Feedback> = mutableListOf<Feedback>()
-) {}
+    val feedback: MutableList<Feedback> = mutableListOf()
+)
