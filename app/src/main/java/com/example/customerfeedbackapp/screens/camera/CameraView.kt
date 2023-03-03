@@ -96,17 +96,6 @@ fun CameraView(productViewModel: ProductViewModel, navController: NavController)
                     previewView
                 }, modifier = Modifier.fillMaxSize()
             )
-            /*
-            Text(
-                text = code,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(32.dp)
-            )
-
-             */
         }
     }
 }

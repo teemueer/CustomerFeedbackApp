@@ -18,15 +18,11 @@ class QrAnalyzer(
         ImageFormat.YUV_444_888
     )
 
-
-
     //Contains information of a single frame from the camera
     override fun analyze(image: ImageProxy) {
         if (image.format in supportedImageFormats) {
 
             val bytes = image.planes.first().buffer.toByteArray()
-            //Code for barcodes since image needs to be flipped
-            //image.imageInfo.rotationDegrees
             val source = PlanarYUVLuminanceSource(
                 bytes,
                 image.width,
@@ -61,7 +57,6 @@ class QrAnalyzer(
 
         }
     }
-
 
     private fun ByteBuffer.toByteArray(): ByteArray {
         rewind()

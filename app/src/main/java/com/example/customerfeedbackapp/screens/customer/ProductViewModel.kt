@@ -18,24 +18,6 @@ class ProductViewModel(): ViewModel(){
     var state = ArrayList<Product2>()
     var product by mutableStateOf<Product2?>(null)
 
-
-/*
-    fun getProducts(){
-        val handle = firestore.collection("products_beta").get()
-        handle.addOnSuccessListener {
-            val _products = ArrayList<Product>()
-            for(product_beta in it.documents){
-                product_beta.toObject(Product::class.java)?.let {
-                    state.add(it)
-                    _products.add(it)
-                }
-                fb.value = _products
-            }
-        }
-    }
-
-
- */
     fun getProductsBCAPI(){
         val handle = firestore.collection("products").get()
         handle.addOnSuccessListener {

@@ -66,8 +66,6 @@ fun PermissionDialog(
         modifier = modifier
     )
 }
-
-
 // To reduce the amount of hardcoding + future proofing.
 // This is a way to get permission info without having to change the code above.
 interface PermissionTextProvider{
