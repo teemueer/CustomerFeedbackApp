@@ -13,9 +13,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.customerfeedbackapp.permissions.PermissionViewModel
+import kotlinx.coroutines.*
 
 @Composable
 fun FeedbackView(productViewModel: ProductViewModel, navController: NavController) {
@@ -31,28 +33,31 @@ fun FeedbackView(productViewModel: ProductViewModel, navController: NavControlle
             )
         }
     )
+
     Column(
         modifier = Modifier
             .padding(16.dp)
             .fillMaxSize()
     ) {
-        Column {
-            Text(text = "Jätä palautetta valitsemalla tuote, tai skannaamalla tuotteen viivakoodi laitteesi kameralla",
-                )
-        }
+        FeedbackInstruction()
         Spacer(modifier = Modifier.height(10.dp))
         SearchView(state = textState)
         Button(onClick = {
-            cameraPermissionresultLauncher.launch(
-                Manifest.permission.CAMERA
-            )
+            CoroutineScope(Dispatchers.Main).launch {
+                cameraPermissionresultLauncher.launch(
+                    Manifest.permission.CAMERA
+                )
+                delay(3000)
+            }
             navController.navigate("CameraView")
         }, modifier = Modifier.fillMaxWidth()) {
             Text(text = "Open camera")
         }
-        Column(modifier = Modifier
-            .heightIn(min = Dp.Unspecified, max = 550.dp)
-            .padding(bottom = 10.dp)) {
+        Column(
+            modifier = Modifier
+                .heightIn(min = Dp.Unspecified, max = 550.dp)
+                .padding(bottom = 10.dp)
+        ) {
             ProductList(
                 navController = navController,
                 productViewModel = productViewModel,
@@ -65,3 +70,15 @@ fun FeedbackView(productViewModel: ProductViewModel, navController: NavControlle
 
     }
 }
+
+@Composable
+fun FeedbackInstruction() {
+    Column {
+        Text(
+            text = "Jätä palautetta valitsemalla tuote, tai skannaamalla tuotteen viivakoodi laitteesi kameralla",
+            fontSize = 20.sp,
+        )
+    }
+}
+
+

@@ -1,11 +1,9 @@
 package com.example.customerfeedbackapp.screens.home
 
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -13,7 +11,9 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.customerfeedbackapp.R
@@ -21,9 +21,6 @@ import com.example.customerfeedbackapp.ui.theme.CustomerFeedbackAppTheme
 
 @Composable
 fun HomeScreen(
-    //navController: NavController,
-    //viewModel: MainViewModel,
-    //permissionViewModel: PermissionViewModel
 ) {
     HomeView()
 }
@@ -42,23 +39,7 @@ fun HomeView(modifier: Modifier = Modifier) {
         }
     }
 }
-/*
-@Preview(showBackground = true, widthDp = 320)
-@Composable
-fun HomeViewPreview() {
-    CustomerFeedbackAppTheme {
-        HomeView(Modifier.fillMaxSize())
-    }
-}
 
- */
-
-
-/*
-All Composable elements used with the Store header.
-The idea of the header is to have the name of the store
-with their logo or chosen image. Since the app could be used by multiple companies
- */
 @Composable
 fun StoreHeader(
     images: List<Int> = listOf(R.drawable.grocery_store_1, R.drawable.grocery_store_2)
@@ -88,10 +69,6 @@ fun StoreHeaderPreview() {
     }
 }
 
-
-/*
-All Composable elements used for store information
- */
 @Composable
 fun StoreInformation() {
     Column(
@@ -121,11 +98,6 @@ fun StoreOCPreview() {
     }
 }
 
-
-
-
-
-
 @Preview(showBackground = true, widthDp = 400)
 @Composable
 fun StoreInformationPreview() {
@@ -136,9 +108,7 @@ fun StoreInformationPreview() {
     }
 }
 
-/*
-All Composable elements used for store news
- */
+
 data class NewsArticle(
     val headline: String,
     val body: String
@@ -146,18 +116,35 @@ data class NewsArticle(
 
 @Composable
 fun StoreNews(headline: String, body: String) {
-    Surface(
-        color = MaterialTheme.colors.primary,
-        modifier = Modifier.padding(vertical = 4.dp)
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 5.dp)
+        ,
+        elevation = 5.dp,
+        backgroundColor = MaterialTheme.colors.primary
+
     ) {
-        Column(
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth()
-        ) {
-            Text(text = headline)
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(text = body)
+        Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)) {
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(), backgroundColor = Color.Blue
+            ) {
+                Column(modifier = Modifier.padding(10.dp)) {
+                    Text(text = headline, color = Color.White, fontWeight = FontWeight.Bold)
+                }
+            }
+            Spacer(modifier = Modifier.height(5.dp))
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(), backgroundColor = Color.Blue
+            ) {
+                Column(modifier = Modifier.padding(10.dp)) {
+                    Text(text = body, color = Color.White)
+                }
+            }
         }
     }
 }
@@ -171,15 +158,17 @@ fun StoreNewsFeed(
             "asdasdjhgdxhfgkjdxhklfjghrdughudxlruhghx djhxdrjklhgx djrh gxdhfjklg hxdjkrh jgkxh dfjklgh xkdjr hgjkhx drkjgh x"
         ),
         NewsArticle("Yes", "Data"),
-        NewsArticle("rgjdjghdxjkrhgjkdxhrkjghxjkdhrg", "toasters are on salt for this week tbw"),
+        NewsArticle(
+            "rgjdjghdxjkrhgjkdxhrkjghxjkdhrasdasdasdasdasdasdasdg",
+            "toasters are on salt for this week tbw"
+        ),
         NewsArticle("LOREM IPSUM", "LOREM IPSUM SÄLÄ BÄLÄ HÄLÄ TÄLÄ KÄLÄ MÄLÄ JÄL DÄLÄ "),
         NewsArticle("LOREM IPSUM", "LOREM IPSUM SÄLÄ BÄLÄ HÄLÄ TÄLÄ KÄLÄ MÄLÄ JÄL DÄLÄ "),
     ),
 ) {
     LazyColumn(
         modifier = modifier
-            .padding(vertical = 5.dp)
-            .height(350.dp)
+            .height(500.dp)
     ) {
         items(items = articles) { article ->
             StoreNews(headline = article.headline, body = article.body)
