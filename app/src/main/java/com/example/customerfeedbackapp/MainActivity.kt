@@ -117,7 +117,7 @@ fun OwnerFeedbackApp(
     viewModel: MainViewModel,
     productViewModel: ProductViewModel,
 ) {
-    val navItems: List<String> = listOf("Products","Charts","Feedback","New Product")
+    val navItems: List<String> = listOf("Products","Charts","New Product")
     val navController = rememberNavController()
     Scaffold(
 
@@ -151,6 +151,9 @@ fun OwnerFeedbackApp(
                 }
                 composable(route="New ProductView"){
                     NewProductView(navController, productViewModel)
+                }
+                composable(route = "ProductsView") {
+                    ProductsView(navController, productViewModel)
                 }
             }
         }
