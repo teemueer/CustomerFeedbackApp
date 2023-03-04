@@ -26,17 +26,19 @@ import androidx.navigation.NavController
 import com.example.customerfeedbackapp.screens.customer.ProductViewModel
 
 @Composable
-fun CameraView(productViewModel: ProductViewModel, navController: NavController) {
-    var code by remember {
-        mutableStateOf("")
-    }
-    val products = productViewModel.state
+fun CameraView(
+    scannerCode:String,
+    onValueChange: (String) -> Unit,
+    ) {
 
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
     val cameraProviderFuture = remember {
         ProcessCameraProvider.getInstance(context)
     }
+
+
+
     var hasCamPermission by remember {
         mutableStateOf(
             ContextCompat.checkSelfPermission(
@@ -86,16 +88,11 @@ fun CameraView(productViewModel: ProductViewModel, navController: NavController)
                         imageAnalysis.setAnalyzer(
                             ContextCompat.getMainExecutor(context),
                             QrAnalyzer { result ->
-                                code = result
-                                for (barcode in products) {
-                                    if (barcode.ean!!.contains(result)) {
-                                        productViewModel.currentItem2 = barcode
-                                        navController.navigate("FeedbackFormView")
-                                    }
-                                }
+                                onValueChange(result)
                             }
                         )
                         try {
+                            cameraProviderFuture.get().unbindAll()
                             cameraProviderFuture.get().bindToLifecycle(
                                 lifecycleOwner,
                                 selector,
@@ -110,7 +107,11 @@ fun CameraView(productViewModel: ProductViewModel, navController: NavController)
                 )
             }
         }
-        Column(Modifier.border(5.dp, Color.White).width(200.dp).height(500.dp),
+        Column(
+            Modifier
+                .border(5.dp, Color.White)
+                .width(200.dp)
+                .height(500.dp),
         ) {
 
         }

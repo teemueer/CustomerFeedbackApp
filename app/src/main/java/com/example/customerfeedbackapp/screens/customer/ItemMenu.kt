@@ -17,20 +17,23 @@ import androidx.navigation.NavController
 @Composable
 fun ItemMenu(
     navController: NavController,
+    items: List<String>
 ) {
-    MenuView(navController)
+    MenuView(navController, navList = items)
 }
 
 @Composable
 fun MenuView(navController: NavController,modifier: Modifier = Modifier
-             ) {
+    ,navList:List<String>) {
     Surface(modifier) {
         Column(
             modifier = modifier
                 .padding(18.dp)
         ) {
-            MenuItem("Products", navController)
-            MenuItem("Feedback", navController)
+            for (navItem in navList)
+           // MenuItem("Products", navController)
+           // MenuItem("Feedback", navController)
+                MenuItem(name = navItem, navController = navController)
         }
     }
 }
