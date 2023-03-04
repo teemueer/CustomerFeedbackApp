@@ -36,27 +36,23 @@ fun FeedbackView(productViewModel: ProductViewModel, navController: NavControlle
         }
     )
 
-
-
-
-
-    if(cameraOpen){
-        if(code.isNotEmpty()) {
+    if (cameraOpen) {
+        if (code.isNotEmpty()) {
             for (product in productViewModel.state) {
                 if (product.ean!!.contains(code)) {
                     productViewModel.currentItem2 = product
                     navController.navigate("FeedbackFormView")
+                    cameraOpen = !cameraOpen
                 }
             }
         }
-        Box(){
-            CameraView(scannerCode = code, onValueChange = {value -> code = value})
+        Box() {
+            CameraView(scannerCode = code, onValueChange = { value -> code = value })
             Button(onClick = { cameraOpen = !cameraOpen }) {
                 Text(text = "back")
             }
         }
-    }
-    else {
+    } else {
         Column(
             modifier = Modifier
                 .padding(16.dp)
@@ -66,7 +62,7 @@ fun FeedbackView(productViewModel: ProductViewModel, navController: NavControlle
             Spacer(modifier = Modifier.height(10.dp))
             SearchView(state = textState)
             Button(onClick = {
-                    cameraOpen = !cameraOpen
+                cameraOpen = !cameraOpen
             }, modifier = Modifier.fillMaxWidth()) {
                 Text(text = "Open camera")
             }

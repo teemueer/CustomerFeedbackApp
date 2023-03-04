@@ -107,13 +107,5 @@ fun CameraView(
                 )
             }
         }
-        Column(
-            Modifier
-                .border(5.dp, Color.White)
-                .width(200.dp)
-                .height(500.dp),
-        ) {
-
-        }
     }
 }
