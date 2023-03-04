@@ -89,9 +89,6 @@ fun CustomerFeedbackApp(
                 ){
                     FeedbackFormView(productViewModel)
                 }
-                composable(route="CameraView"){
-                    CameraView(productViewModel, navController)
-                }
             }
         }
     }
