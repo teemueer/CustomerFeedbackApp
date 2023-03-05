@@ -13,19 +13,20 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.example.customerfeedbackapp.newsDatabase.NewsArticle
 import com.example.customerfeedbackapp.newsDatabase.NewsArticleViewModel
 import com.example.customerfeedbackapp.newsDatabase.NewsArticleViewModelFactory
 
 @Composable
-fun ArticleView(){
+fun ArticleView(navController: NavController){
     Column() {
-        InputCluster()
+        InputCluster(navController)
     }
 }
 
 @Composable
-fun InputCluster(){
+fun InputCluster(navController: NavController){
     var title by remember { mutableStateOf("") }
     var body by remember { mutableStateOf("") }
 
@@ -36,18 +37,21 @@ fun InputCluster(){
 
 
 
-    Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .padding(16.dp)) {
+        Text(text = "Title:")
         Card(
             modifier = Modifier
                 .padding(top = 10.dp)
-                .heightIn(min = Dp.Unspecified, max = 120.dp),
+                .heightIn(min = Dp.Unspecified, max = 80.dp),
             shape = RoundedCornerShape(10.dp),
             elevation = 5.dp,
             border = BorderStroke(2.dp, MaterialTheme.colors.primary)
         ) {
             TextField(
                 value = title, onValueChange = { title = it },
-                label = { Text(text = "Leave feedback here!") }, modifier =
+                label = { Text(text = "A creative title!") }, modifier =
                 Modifier
                     .height(200.dp)
                     .background(Color.White)
@@ -55,6 +59,7 @@ fun InputCluster(){
                     .textFieldColors(backgroundColor = MaterialTheme.colors.onPrimary )
             )
         }
+        Text(text = "Body:")
         Card(
             modifier = Modifier
                 .padding(top = 10.dp)
@@ -65,7 +70,7 @@ fun InputCluster(){
         ) {
             TextField(
                 value = body, onValueChange = { body = it },
-                label = { Text(text = "Leave feedback here!") }, modifier =
+                label = { Text(text = "Something very creative!") }, modifier =
                 Modifier
                     .height(200.dp)
                     .background(Color.White)
@@ -73,8 +78,13 @@ fun InputCluster(){
                     .textFieldColors(backgroundColor = MaterialTheme.colors.onPrimary )
             )
         }
-
-        Button(onClick = {mNewsArticleViewModel.addArticle(NewsArticle(0,title,body)) }) {
+        Spacer(modifier = Modifier.height(10.dp))
+        Button(onClick = {
+            mNewsArticleViewModel.addArticle(NewsArticle(0,title,body))
+            title = ""
+            body = ""
+            navController.navigate("ItemMenu")
+        }) {
             Text(text = "Post")
         }
 

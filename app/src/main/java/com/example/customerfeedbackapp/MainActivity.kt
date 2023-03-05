@@ -102,12 +102,6 @@ fun CustomerFeedbackApp(
                 ) {
                     FeedbackFormView(productViewModel)
                 }
-                /*
-                composable(route = "CameraView") {
-                    CameraView(productViewModel, navController)
-                }
-
-                 */
             }
         }
     }
@@ -155,7 +149,7 @@ fun OwnerFeedbackApp(
                     NewProductView(navController, productViewModel)
                 }
                 composable(route="New ArticleView"){
-                    ArticleView()
+                    ArticleView(navController)
                 }
                 composable(route = "ProductsView") {
                     ProductsView(navController, productViewModel)
