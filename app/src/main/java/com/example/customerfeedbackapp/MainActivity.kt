@@ -22,11 +22,11 @@ import com.example.customerfeedbackapp.composables.BottomBar
 import com.example.customerfeedbackapp.composables.UiFab
 import com.example.customerfeedbackapp.composables.UiTopAppBar
 import com.example.customerfeedbackapp.models.User
-import com.example.customerfeedbackapp.screens.camera.CameraView
 import com.example.customerfeedbackapp.screens.customer.*
 import com.example.customerfeedbackapp.screens.home.HomeScreen
 import com.example.customerfeedbackapp.screens.home.OwnerHome
 import com.example.customerfeedbackapp.screens.login.LoginScreen
+import com.example.customerfeedbackapp.screens.owner.ArticleView
 import com.example.customerfeedbackapp.screens.owner.NewProductView
 import com.example.customerfeedbackapp.screens.settings.SettingsScreen
 import com.example.customerfeedbackapp.ui.theme.CustomerFeedbackAppTheme
@@ -102,17 +102,24 @@ fun CustomerFeedbackApp(
                 ) {
                     FeedbackFormView(productViewModel)
                 }
+                /*
+                composable(route = "CameraView") {
+                    CameraView(productViewModel, navController)
+                }
+
+                 */
             }
         }
     }
 }
+
 
 @Composable
 fun OwnerFeedbackApp(
     viewModel: MainViewModel,
     productViewModel: ProductViewModel,
 ) {
-    val navItems: List<String> = listOf("Products","Charts","New Product")
+    val navItems: List<String> = listOf("Products","Charts","New Product", "New Article")
     val navController = rememberNavController()
     Scaffold(
 
@@ -146,6 +153,9 @@ fun OwnerFeedbackApp(
                 }
                 composable(route="New ProductView"){
                     NewProductView(navController, productViewModel)
+                }
+                composable(route="New ArticleView"){
+                    ArticleView()
                 }
                 composable(route = "ProductsView") {
                     ProductsView(navController, productViewModel)

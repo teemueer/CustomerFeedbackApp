@@ -16,6 +16,7 @@ class NewsArticleViewModel(application: Application) : AndroidViewModel(applicat
         readAllData = repository.readAllData
     }
 
+
     fun addArticle(article: NewsArticle) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.addNewsArticle(article)
