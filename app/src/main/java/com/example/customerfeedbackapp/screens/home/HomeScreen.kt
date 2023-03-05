@@ -1,9 +1,11 @@
 package com.example.customerfeedbackapp.screens.home
 
+import android.view.RoundedCorner
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -30,8 +32,7 @@ fun HomeView(modifier: Modifier = Modifier) {
     Surface(modifier) {
         Column(
             modifier = modifier
-                .padding(18.dp)
-                .verticalScroll(rememberScrollState())
+                .padding(16.dp)
         ) {
             StoreHeader()
             StoreInformation()
@@ -122,7 +123,8 @@ fun StoreNews(headline: String, body: String) {
             .padding(vertical = 5.dp)
         ,
         elevation = 5.dp,
-        backgroundColor = MaterialTheme.colors.primary
+        backgroundColor = MaterialTheme.colors.primary,
+        shape = RoundedCornerShape(10.dp)
 
     ) {
         Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)) {

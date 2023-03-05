@@ -91,7 +91,7 @@ fun FeedbackView(productViewModel: ProductViewModel, navController: NavControlle
 fun FeedbackInstruction() {
     Column {
         Text(
-            text = "Jätä palautetta valitsemalla tuote, tai skannaamalla tuotteen viivakoodi laitteesi kameralla",
+            text = "Valitse palautteelle annettava tuote.",
             fontSize = 20.sp,
         )
     }

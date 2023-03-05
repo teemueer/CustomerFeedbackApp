@@ -22,8 +22,9 @@ fun ItemMenu(
 }
 
 @Composable
-fun MenuView(navController: NavController,modifier: Modifier = Modifier
-             ) {
+fun MenuView(
+    navController: NavController, modifier: Modifier = Modifier
+) {
     Surface(modifier) {
         Column(
             modifier = modifier
@@ -36,7 +37,7 @@ fun MenuView(navController: NavController,modifier: Modifier = Modifier
 }
 
 @Composable
-fun MenuItem(name:String, navController: NavController){
+fun MenuItem(name: String, navController: NavController) {
     Surface {
         Card(
             backgroundColor = MaterialTheme.colors.primary,
@@ -56,7 +57,7 @@ fun MenuItem(name:String, navController: NavController){
 
 @Preview(showBackground = true)
 @Composable
-fun MenuItemPreview(){
-    MenuItem(name = "Feedback", navController = NavController(context = LocalContext.current) )
+fun MenuItemPreview() {
+    MenuItem(name = "Feedback", navController = NavController(context = LocalContext.current))
 }
 

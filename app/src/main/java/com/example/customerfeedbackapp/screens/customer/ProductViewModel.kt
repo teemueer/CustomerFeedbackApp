@@ -8,6 +8,10 @@ import androidx.lifecycle.ViewModel
 import com.example.customerfeedbackapp.models.Feedback
 import com.example.customerfeedbackapp.models.Product2
 import com.google.firebase.firestore.FirebaseFirestore
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class ProductViewModel(): ViewModel(){
@@ -40,9 +44,13 @@ class ProductViewModel(): ViewModel(){
             product = it.documents[0].toObject(Product2::class.java)
         }
 
+        val formatter = SimpleDateFormat.getDateTimeInstance()
+        val date = Date()
+        val current = formatter.format(date)
+
         rRef.addOnSuccessListener {
             val feedbacks = product?.feedback ?: mutableListOf<Feedback>()
-            feedbacks.add(Feedback(feedback, rating))
+            feedbacks.add(Feedback(current,feedback, rating))
             Log.d("DBG", "$feedbacks")
             handle.document(it.documents[0].id).update("feedback", feedbacks)
         }
