@@ -10,20 +10,14 @@ import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
-import androidx.navigation.NavController
-import com.example.customerfeedbackapp.screens.customer.ProductViewModel
 
 @Composable
 fun CameraView(
@@ -106,14 +100,6 @@ fun CameraView(
                     }, modifier = Modifier.fillMaxSize()
                 )
             }
-        }
-        Column(
-            Modifier
-                .border(5.dp, Color.White)
-                .width(200.dp)
-                .height(500.dp),
-        ) {
-
         }
     }
 }

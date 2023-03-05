@@ -39,6 +39,7 @@ class MainActivity : ComponentActivity() {
             val user: User? by viewModel.currentUser.observeAsState(null)
             CustomerFeedbackAppTheme {
                 val productViewModel: ProductViewModel by viewModels()
+
                 productViewModel.getProductsBCAPI()
                 if (user != null) {
                     OwnerFeedbackApp(viewModel,productViewModel)
@@ -101,12 +102,6 @@ fun CustomerFeedbackApp(
                 ) {
                     FeedbackFormView(productViewModel)
                 }
-                /*
-                composable(route = "CameraView") {
-                    CameraView(productViewModel, navController)
-                }
-
-                 */
             }
         }
     }
