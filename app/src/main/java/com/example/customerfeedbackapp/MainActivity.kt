@@ -19,7 +19,6 @@ import androidx.navigation.compose.rememberNavController
 import com.example.customerfeedbackapp.composables.BottomBar
 import com.example.customerfeedbackapp.composables.UiFab
 import com.example.customerfeedbackapp.composables.UiTopAppBar
-import com.example.customerfeedbackapp.screens.camera.CameraView
 import com.example.customerfeedbackapp.screens.customer.*
 import com.example.customerfeedbackapp.screens.home.HomeScreen
 import com.example.customerfeedbackapp.screens.login.LoginScreen
@@ -32,6 +31,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             CustomerFeedbackAppTheme {
+
                 val productViewModel:ProductViewModel by viewModels()
                 productViewModel.getProductsBCAPI()
                 CustomerFeedbackApp(viewModel, productViewModel)

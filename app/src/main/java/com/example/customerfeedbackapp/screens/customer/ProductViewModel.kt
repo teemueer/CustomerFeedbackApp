@@ -9,9 +9,7 @@ import com.example.customerfeedbackapp.models.Feedback
 import com.example.customerfeedbackapp.models.Product2
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
-import java.time.LocalDate
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class ProductViewModel(): ViewModel(){
