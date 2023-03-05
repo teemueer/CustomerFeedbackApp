@@ -23,7 +23,7 @@ import androidx.core.content.ContextCompat
 fun CameraView(
     scannerCode:String,
     onValueChange: (String) -> Unit,
-) {
+    ) {
 
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current

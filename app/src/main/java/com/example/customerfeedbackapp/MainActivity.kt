@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -19,9 +21,13 @@ import androidx.navigation.compose.rememberNavController
 import com.example.customerfeedbackapp.composables.BottomBar
 import com.example.customerfeedbackapp.composables.UiFab
 import com.example.customerfeedbackapp.composables.UiTopAppBar
+import com.example.customerfeedbackapp.models.User
+import com.example.customerfeedbackapp.screens.camera.CameraView
 import com.example.customerfeedbackapp.screens.customer.*
 import com.example.customerfeedbackapp.screens.home.HomeScreen
+import com.example.customerfeedbackapp.screens.home.OwnerHome
 import com.example.customerfeedbackapp.screens.login.LoginScreen
+import com.example.customerfeedbackapp.screens.owner.NewProductView
 import com.example.customerfeedbackapp.screens.settings.SettingsScreen
 import com.example.customerfeedbackapp.ui.theme.CustomerFeedbackAppTheme
 
@@ -30,11 +36,16 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val user: User? by viewModel.currentUser.observeAsState(null)
             CustomerFeedbackAppTheme {
+                val productViewModel: ProductViewModel by viewModels()
 
-                val productViewModel:ProductViewModel by viewModels()
                 productViewModel.getProductsBCAPI()
-                CustomerFeedbackApp(viewModel, productViewModel)
+                if (user != null) {
+                    OwnerFeedbackApp(viewModel,productViewModel)
+                } else {
+                    CustomerFeedbackApp(viewModel, productViewModel)
+                }
             }
         }
     }
@@ -45,10 +56,12 @@ fun CustomerFeedbackApp(
     viewModel: MainViewModel,
     productViewModel: ProductViewModel,
 ) {
+    val navItems: List<String> = listOf("Products", "Feedback")
     val navController = rememberNavController()
     Scaffold(
 
-        floatingActionButton = { UiFab(navController, viewModel)
+        floatingActionButton = {
+            UiFab(navController, viewModel)
         },
         topBar = { UiTopAppBar(navController, viewModel) },
         bottomBar = { BottomBar(navController) }
@@ -72,22 +85,73 @@ fun CustomerFeedbackApp(
                 composable(route = "login") {
                     LoginScreen(navController, viewModel)
                 }
-                composable(route="ItemMenu"){
-                    ItemMenu(navController)
+                composable(route = "ItemMenu") {
+                    ItemMenu(navController, navItems)
                 }
-                composable(route="ProductsView"){
+                composable(route = "ProductsView") {
                     ProductsView(navController, productViewModel)
                 }
-                composable(route="SingleProduct"){
+                composable(route = "SingleProduct") {
                     SingleProduct(productViewModel, navController)
                 }
-                composable(route="FeedbackView"){
+                composable(route = "FeedbackView") {
                     FeedbackView(productViewModel, navController)
                 }
                 composable(
-                    route="FeedbackFormView"
-                ){
+                    route = "FeedbackFormView"
+                ) {
                     FeedbackFormView(productViewModel)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun OwnerFeedbackApp(
+    viewModel: MainViewModel,
+    productViewModel: ProductViewModel,
+) {
+    val navItems: List<String> = listOf("Products","Charts","New Product")
+    val navController = rememberNavController()
+    Scaffold(
+
+        floatingActionButton = {
+            UiFab(navController, viewModel)
+        },
+        topBar = { UiTopAppBar(navController, viewModel) },
+        bottomBar = { BottomBar(navController) }
+
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(bottom = 50.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
+        )
+        {
+            NavHost(navController, startDestination = "home") {
+                composable(route = "home") {
+                    OwnerHome()
+                }
+                composable(route = "settings") {
+                    SettingsScreen(navController, viewModel)
+                }
+                composable(route = "login") {
+                    LoginScreen(navController, viewModel)
+                }
+                composable(route = "ItemMenu") {
+                    ItemMenu(navController, navItems)
+                }
+                composable(route="New ProductView"){
+                    NewProductView(navController, productViewModel)
+                }
+                composable(route = "ProductsView") {
+                    ProductsView(navController, productViewModel)
+                }
+                composable(route = "SingleProduct") {
+                    SingleProduct(productViewModel, navController)
                 }
             }
         }

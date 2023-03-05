@@ -5,22 +5,28 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.customerfeedbackapp.api.BarcodeRepository
 import com.example.customerfeedbackapp.models.Feedback
 import com.example.customerfeedbackapp.models.Product2
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-class ProductViewModel(): ViewModel(){
+class ProductViewModel() : ViewModel() {
     //var currentItem:Product  = Product()
     var currentItem2: Product2 = Product2()
     private var firestore = FirebaseFirestore.getInstance()
     var fb = mutableStateOf<List<Product2>>(emptyList())
     var state = ArrayList<Product2>()
+    var toast by mutableStateOf<String?>(null)
     var product by mutableStateOf<Product2?>(null)
-
-    fun getProductsBCAPI(){
+    private val repository = BarcodeRepository()
+    var readyToNavigate by mutableStateOf<Boolean>(false)
+    fun getProductsBCAPI() {
         val handle = firestore.collection("products").get()
         handle.addOnSuccessListener {
             val _products = ArrayList<Product2>()
@@ -35,7 +41,7 @@ class ProductViewModel(): ViewModel(){
         handle.addOnFailureListener { Log.d("DBG", "${it.message}") }
     }
 
-    fun rate(feedback:String, rating: Int) {
+    fun rate(feedback: String, rating: Int) {
         val handle = firestore.collection("products")
         val rRef = handle.whereEqualTo("ean", currentItem2.ean).get()
         rRef.addOnSuccessListener {
@@ -54,7 +60,42 @@ class ProductViewModel(): ViewModel(){
         }
     }
 
+    fun addProduct(ean: String) {
+        val handle = firestore.collection("products")
+        val existingProduct = handle.whereEqualTo("ean", ean).get()
+
+        existingProduct.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                task.result.let {
+                    if (it.isEmpty) {
+                        viewModelScope.launch(Dispatchers.IO) {
+                            val product = repository.getProduct(ean).product
+                            if (product != null) {
+                                handle.add(
+                                    Product2(
+                                        ean,
+                                        product.title,
+                                        product.manufacturer,
+                                        product.description,
+                                        product.images
+                                    )
+                                )
+                                readyToNavigate = true
+                            } else {
+                                toast = "Product with EAN $ean was not found."
+                            }
+                        }
+                    } else {
+                        toast = "Product already in database."
+                    }
+                }
+            }
+        }
+    }
 }
+
+
+
 
 
 
