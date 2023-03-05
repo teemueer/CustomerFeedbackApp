@@ -12,6 +12,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -19,12 +20,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
+import com.example.customerfeedbackapp.MainViewModel
 import com.example.customerfeedbackapp.R
 import com.example.customerfeedbackapp.models.Product
 import com.example.customerfeedbackapp.models.Product2
+import com.example.customerfeedbackapp.models.User
 
 @Composable
-fun SingleProduct(productViewModel: ProductViewModel, navController: NavHostController) {
+fun SingleProduct(
+    productViewModel: ProductViewModel,
+    navController: NavHostController,
+) {
+    val viewModel = MainViewModel()
+    val user: User? by viewModel.currentUser.observeAsState(null)
     val product = productViewModel.currentItem2
     Column(
         horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier
@@ -36,9 +44,12 @@ fun SingleProduct(productViewModel: ProductViewModel, navController: NavHostCont
         Spacer(modifier = Modifier.height(20.dp))
         ImageAndPrice(product = product)
         Spacer(modifier = Modifier.padding(vertical = 15.dp))
-        if(product.description!!.isNotEmpty()) InformationCard(product.description, title = "Tuotekuvaus")
+        if (product.description!!.isNotEmpty()) InformationCard(
+            product.description,
+            title = "Tuotekuvaus"
+        )
         //if(product.product_info.isNotEmpty()) InformationCard(product.product_info, title = "Tuotetiedot")
-        FeedbackButton(navController = navController)
+        if(user != null)FeedbackButton(navController = navController)
     }
 }
 
@@ -69,10 +80,10 @@ fun ImageAndPrice(product: Product2) {
             )
         }
         Spacer(modifier = Modifier.width(40.dp))
-       /* Text(
-            text = product.price + " " + if (product.kiloOrKpl) "Kilo" else "Kpl",
-            style = MaterialTheme.typography.h4.copy(fontWeight = FontWeight.ExtraBold)
-        )*/
+        /* Text(
+             text = product.price + " " + if (product.kiloOrKpl) "Kilo" else "Kpl",
+             style = MaterialTheme.typography.h4.copy(fontWeight = FontWeight.ExtraBold)
+         )*/
     }
 }
 
@@ -147,9 +158,11 @@ fun InformationCardPreview() {
 
 @Composable
 fun FeedbackButton(navController: NavHostController) {
-    Row(horizontalArrangement = Arrangement.Start, modifier = Modifier
-        .fillMaxWidth()
-        .padding(vertical = 4.dp, horizontal = 8.dp)) {
+    Row(
+        horizontalArrangement = Arrangement.Start, modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 4.dp, horizontal = 8.dp)
+    ) {
         Button(onClick = { navController.navigate("FeedbackFormView") }) {
             Column() {
                 Text(text = "Arvioi")

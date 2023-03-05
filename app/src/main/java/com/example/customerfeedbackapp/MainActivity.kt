@@ -155,6 +155,9 @@ fun OwnerFeedbackApp(
                 composable(route = "ProductsView") {
                     ProductsView(navController, productViewModel)
                 }
+                composable(route = "SingleProduct") {
+                    SingleProduct(productViewModel, navController)
+                }
             }
         }
     }
