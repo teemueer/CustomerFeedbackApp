@@ -66,7 +66,7 @@ fun ChartView(productViewModel: ProductViewModel, navController: NavController) 
                     this.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
                         override fun onValueSelected(e: Entry?, h: Highlight?) {
                             productViewModel.currentFeedbackSelected = e?.x?.toInt()!!
-                            navController.navigate("FeedbackView")
+                            navController.navigate("OwnerFeedbackView")
                         }
 
                         override fun onNothingSelected() {}
@@ -83,7 +83,7 @@ fun ChartView(productViewModel: ProductViewModel, navController: NavController) 
 fun updateBarChartWithData(chart: BarChart, data: List<Feedback>) {
     val entries = ArrayList<BarEntry>()
 
-    var ratings = mutableListOf(0f, 0f, 0f, 0f, 0f)
+    val ratings = mutableListOf(0f, 0f, 0f, 0f, 0f)
     for (i in data.indices) {
         ratings[data[i].rating - 1] += 1f
     }

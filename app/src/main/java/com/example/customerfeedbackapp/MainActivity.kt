@@ -174,7 +174,7 @@ fun OwnerFeedbackApp(
                 composable(route = "ChartView") {
                     ChartView(productViewModel, navController)
                 }
-                composable(route = "FeedbackView") {
+                composable(route = "OwnerFeedbackView") {
                     OwnerFeedbackView(productViewModel)
                 }
             }
