@@ -1,6 +1,7 @@
 package com.example.customerfeedbackapp.screens.home
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -33,10 +34,11 @@ fun HomeScreen(
 
 @Composable
 fun HomeView(modifier: Modifier = Modifier) {
-    Surface(modifier) {
         Column(
             modifier = modifier
                 .padding(16.dp)
+                .background(MaterialTheme.colorScheme.background)
+
         ) {
             StoreHeader()
             StoreInformation()
@@ -48,7 +50,6 @@ fun HomeView(modifier: Modifier = Modifier) {
             )
             StoreNewsFeed()
         }
-    }
 }
 
 @Composable
@@ -124,43 +125,32 @@ fun StoreNews(headline: String, body: String) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 5.dp)
-        ,
-        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
+            .padding(vertical = 10.dp),
+        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primaryContainer),
         shape = RoundedCornerShape(10.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 10.dp)
 
     ) {
-        Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)) {
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primaryContainer)
-            ) {
-                Column(modifier = Modifier.padding(10.dp)) {
-                    Text(
-                        text = headline,
-                        color = MaterialTheme.colorScheme.onPrimaryContainer,
-                        fontWeight = FontWeight.ExtraBold,
-                        style = MaterialTheme.typography.titleLarge
+        Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)) {
 
-                    )
-                }
-            }
-            Spacer(modifier = Modifier.height(15.dp))
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                colors = CardDefaults.cardColors(MaterialTheme.colorScheme.background)
-            ) {
-                Column(modifier = Modifier.padding(10.dp)) {
-                    Text(
-                        text = body,
-                        color = MaterialTheme.colorScheme.onBackground,
-                        style = MaterialTheme.typography.bodyLarge,
-                        fontWeight = FontWeight.Bold,
-                        )
-                }
+            Column(modifier = Modifier.padding(10.dp)) {
+
+                Text(
+                    text = headline,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                    fontWeight = FontWeight.ExtraBold,
+                    style = MaterialTheme.typography.titleLarge
+
+                )
+
+
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = body,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontWeight = FontWeight.Bold,
+                )
             }
         }
     }
@@ -178,7 +168,14 @@ fun StoreNewsFeed(
         modifier = modifier
     ) {
         items(items = articles) { article ->
-            article.newsTitle?.let { article.newsArticle?.let { it1 -> StoreNews(headline = it, body = it1) } }
+            article.newsTitle?.let {
+                article.newsArticle?.let { it1 ->
+                    StoreNews(
+                        headline = it,
+                        body = it1
+                    )
+                }
+            }
         }
     }
 

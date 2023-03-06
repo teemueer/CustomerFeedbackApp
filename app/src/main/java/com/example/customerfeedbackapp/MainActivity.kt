@@ -4,10 +4,12 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -41,11 +43,11 @@ class MainActivity : ComponentActivity() {
                 val productViewModel: ProductViewModel by viewModels()
 
                 productViewModel.getProductsBCAPI()
-                if (user != null) {
-                    OwnerFeedbackApp(viewModel,productViewModel)
-                } else {
-                    CustomerFeedbackApp(viewModel, productViewModel)
-                }
+                    if (user != null) {
+                        OwnerFeedbackApp(viewModel,productViewModel)
+                    } else {
+                        CustomerFeedbackApp(viewModel, productViewModel)
+                    }
             }
         }
     }
@@ -59,7 +61,7 @@ fun CustomerFeedbackApp(
     val navItems: List<String> = listOf("Products", "Feedback")
     val navController = rememberNavController()
     Scaffold(
-
+        backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.background,
         floatingActionButton = {
             UiFab(navController, viewModel)
         },

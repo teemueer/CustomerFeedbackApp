@@ -3,6 +3,7 @@ package com.example.customerfeedbackapp.screens.customer
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
@@ -19,7 +20,7 @@ fun ItemMenu(
     navController: NavController,
     items: List<String>
 ) {
-    MenuView(navController, navList = items)
+        MenuView(navController, navList = items)
 }
 
 @Composable
@@ -41,7 +42,7 @@ fun MenuView(navController: NavController,modifier: Modifier = Modifier
 fun MenuItem(name: String, navController: NavController) {
     Surface {
         Card(
-            colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
+            colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary),
             modifier = Modifier
                 .padding(vertical = 4.dp, horizontal = 8.dp)
                 .clickable {
@@ -49,7 +50,7 @@ fun MenuItem(name: String, navController: NavController) {
                 },
         ) {
             Row(modifier = Modifier.padding(20.dp)) {
-                Text(text = name, modifier = Modifier.weight(1f))
+                Text(text = name, modifier = Modifier.weight(1f), color = MaterialTheme.colorScheme.onSecondary)
                 Icon(imageVector = Icons.Default.KeyboardArrowRight, contentDescription = "")
             }
         }
