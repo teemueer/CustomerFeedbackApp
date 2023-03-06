@@ -26,6 +26,7 @@ class ProductViewModel() : ViewModel() {
     var product by mutableStateOf<Product2?>(null)
     private val repository = BarcodeRepository()
     var readyToNavigate by mutableStateOf<Boolean>(false)
+
     fun getProductsBCAPI() {
         val handle = firestore.collection("products").get()
         handle.addOnSuccessListener {

@@ -18,8 +18,10 @@ fun UiFab(
 ){
     val user: User? by viewModel.currentUser.observeAsState(null)
     if (user != null) {
+        /*
         FloatingActionButton(onClick = { /*TODO*/ }) {
             Icon(Icons.Filled.Add, "Add")
         }
+        */
     }
 }

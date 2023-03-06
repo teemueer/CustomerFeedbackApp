@@ -1,6 +1,7 @@
 package com.example.customerfeedbackapp
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -26,15 +27,25 @@ import com.example.customerfeedbackapp.screens.customer.*
 import com.example.customerfeedbackapp.screens.home.HomeScreen
 import com.example.customerfeedbackapp.screens.home.OwnerHome
 import com.example.customerfeedbackapp.screens.login.LoginScreen
-import com.example.customerfeedbackapp.screens.owner.ArticleView
-import com.example.customerfeedbackapp.screens.owner.NewProductView
+import com.example.customerfeedbackapp.screens.owner.*
 import com.example.customerfeedbackapp.screens.settings.SettingsScreen
 import com.example.customerfeedbackapp.ui.theme.CustomerFeedbackAppTheme
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : ComponentActivity() {
     private val viewModel: MainViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // auto login
+        val firebaseUser = FirebaseAuth.getInstance().currentUser
+        firebaseUser?.let {
+            Log.d("DBG", "logging in...")
+            val user = User(it.uid, it.email)
+            viewModel.currentUser.postValue(user)
+        }
+
         setContent {
             val user: User? by viewModel.currentUser.observeAsState(null)
             CustomerFeedbackAppTheme {
@@ -156,6 +167,15 @@ fun OwnerFeedbackApp(
                 }
                 composable(route = "SingleProduct") {
                     SingleProduct(productViewModel, navController)
+                }
+                composable(route = "ChartsView") {
+                    ChartsView(productViewModel, navController)
+                }
+                composable(route = "ChartView") {
+                    ChartView(productViewModel, navController)
+                }
+                composable(route = "FeedbackView") {
+                    OwnerFeedbackView(productViewModel)
                 }
             }
         }
