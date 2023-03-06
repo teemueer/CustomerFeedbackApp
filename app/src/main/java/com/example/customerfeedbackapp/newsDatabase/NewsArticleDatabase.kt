@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 
-@Database(entities = [NewsArticle::class], version = 1, exportSchema = false)
+@Database(entities = [NewsArticle::class], version = 2, exportSchema = false)
 abstract class NewsArticleDatabase : RoomDatabase() {
     abstract fun newsArticleDao(): NewsArticleDao
 
@@ -15,15 +15,16 @@ abstract class NewsArticleDatabase : RoomDatabase() {
         private var INSTANCE: NewsArticleDatabase? = null
 
         fun getDatabase(context: Context): NewsArticleDatabase {
-            return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    NewsArticleDatabase::class.java,
-                    "article_database"
-                ).build()
-                INSTANCE = instance
-                instance
-            }
+                synchronized(this){
+                    var instance = INSTANCE
+                    if(instance == null) {
+                        instance = Room.databaseBuilder(context,
+                            NewsArticleDatabase::class.java, "article_database")
+                            .fallbackToDestructiveMigration().build()
+                        INSTANCE = instance
+                    }
+                    return instance
+                }
         }
 
     }

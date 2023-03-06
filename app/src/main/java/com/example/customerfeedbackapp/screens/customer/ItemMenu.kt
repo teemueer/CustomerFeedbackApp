@@ -4,7 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.runtime.Composable
@@ -32,8 +32,6 @@ fun MenuView(navController: NavController,modifier: Modifier = Modifier
                 .padding(18.dp)
         ) {
             for (navItem in navList)
-           // MenuItem("Products", navController)
-           // MenuItem("Feedback", navController)
                 MenuItem(name = navItem, navController = navController)
         }
     }
@@ -43,12 +41,12 @@ fun MenuView(navController: NavController,modifier: Modifier = Modifier
 fun MenuItem(name: String, navController: NavController) {
     Surface {
         Card(
-            backgroundColor = MaterialTheme.colors.primary,
+            colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
             modifier = Modifier
                 .padding(vertical = 4.dp, horizontal = 8.dp)
                 .clickable {
                     navController.navigate("${name}View")
-                }
+                },
         ) {
             Row(modifier = Modifier.padding(20.dp)) {
                 Text(text = name, modifier = Modifier.weight(1f))

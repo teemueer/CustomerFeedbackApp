@@ -7,7 +7,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
@@ -49,7 +49,7 @@ fun SingleProduct(
             title = "Tuotekuvaus"
         )
         //if(product.product_info.isNotEmpty()) InformationCard(product.product_info, title = "Tuotetiedot")
-        if(user != null)FeedbackButton(navController = navController)
+        if (user == null) FeedbackButton(navController = navController)
     }
 }
 
@@ -59,9 +59,10 @@ fun ProductTitle(product: Product2) {
     Column() {
         Text(
             text = product.title!!,
-            style = MaterialTheme.typography.h5.copy(fontWeight = FontWeight.ExtraBold)
+            //style = MaterialTheme.typography.h5.copy(fontWeight = FontWeight.ExtraBold)
+            style = androidx.compose.material3.MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.ExtraBold)
         )
-        Text(text = product.ean!!, style = MaterialTheme.typography.caption)
+        Text(text = product.ean!!, style = MaterialTheme.typography.titleMedium)
     }
 }
 
@@ -76,7 +77,7 @@ fun ImageAndPrice(product: Product2) {
             Image(
                 painter = rememberAsyncImagePainter(it),
                 contentDescription = null,
-                modifier = Modifier.size(120.dp)
+                modifier = Modifier.size(160.dp)
             )
         }
         Spacer(modifier = Modifier.width(40.dp))
@@ -90,8 +91,8 @@ fun ImageAndPrice(product: Product2) {
 @Composable
 fun InformationCard(productString: String, title: String) {
     Card(
-        backgroundColor = MaterialTheme.colors.primary,
-        modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp)
+        modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp),
+        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary)
     ) {
         InformationCardContent(productString, title = title)
     }
@@ -163,11 +164,8 @@ fun FeedbackButton(navController: NavHostController) {
             .fillMaxWidth()
             .padding(vertical = 4.dp, horizontal = 8.dp)
     ) {
-        Button(onClick = { navController.navigate("FeedbackFormView") }) {
-            Column() {
-                Text(text = "Arvioi")
-                Text(text = "Tuote")
-            }
+            Button(onClick = {navController.navigate("FeedbackFormView") }) {
+                    Text(text = "Arvioi tuote")
         }
     }
 }

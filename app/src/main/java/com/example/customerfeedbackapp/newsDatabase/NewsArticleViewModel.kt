@@ -30,14 +30,4 @@ class NewsArticleViewModel(application: Application) : AndroidViewModel(applicat
     }
 }
 
-class NewsArticleViewModelFactory(
-    private val application: Application
-) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        @Suppress("UNCHECKED_CAST")
-        if (modelClass.isAssignableFrom(NewsArticleViewModel::class.java)) {
-            return NewsArticleViewModel(application) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
-}
+

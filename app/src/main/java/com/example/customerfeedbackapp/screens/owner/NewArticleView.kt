@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -16,7 +17,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.customerfeedbackapp.newsDatabase.NewsArticle
 import com.example.customerfeedbackapp.newsDatabase.NewsArticleViewModel
-import com.example.customerfeedbackapp.newsDatabase.NewsArticleViewModelFactory
 
 @Composable
 fun ArticleView(navController: NavController){
@@ -31,9 +31,9 @@ fun InputCluster(navController: NavController){
     var body by remember { mutableStateOf("") }
 
     val context = LocalContext.current
-    val mNewsArticleViewModel: NewsArticleViewModel = viewModel(
-        factory = NewsArticleViewModelFactory(context.applicationContext as Application)
-    )
+    val mNewsArticleViewModel: NewsArticleViewModel = viewModel()
+
+
 
 
 
