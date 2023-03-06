@@ -65,6 +65,7 @@ fun ChartView(productViewModel: ProductViewModel, navController: NavController) 
 
                     this.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
                         override fun onValueSelected(e: Entry?, h: Highlight?) {
+                            productViewModel.currentFeedbackSelected = e?.x?.toInt()!!
                             navController.navigate("FeedbackView")
                         }
 

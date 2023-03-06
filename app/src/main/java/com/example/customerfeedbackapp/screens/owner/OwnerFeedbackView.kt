@@ -27,10 +27,18 @@ import com.example.customerfeedbackapp.screens.customer.ProductViewModel
 
 @Composable
 fun OwnerFeedbackView(productViewModel: ProductViewModel) {
-    LazyColumn() {
-        items(productViewModel.currentItem2.feedback) { feedback ->
-            FeedbackItem(feedback)
+    val feedbacks = productViewModel.currentItem2.feedback.filter {
+        it.rating == productViewModel.currentFeedbackSelected && it.feedback != ""
+    }
+
+    if (feedbacks.size > 0) {
+        LazyColumn() {
+            items(feedbacks) { feedback ->
+                FeedbackItem(feedback)
+            }
         }
+    } else {
+        Text("No written feedbacks available...")
     }
 }
 

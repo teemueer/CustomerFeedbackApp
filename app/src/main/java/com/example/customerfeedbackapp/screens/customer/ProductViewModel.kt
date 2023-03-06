@@ -19,6 +19,8 @@ import java.util.*
 class ProductViewModel() : ViewModel() {
     //var currentItem:Product  = Product()
     var currentItem2: Product2 = Product2()
+    var currentFeedbackSelected: Int = 0
+
     private var firestore = FirebaseFirestore.getInstance()
     var fb = mutableStateOf<List<Product2>>(emptyList())
     var state = ArrayList<Product2>()
