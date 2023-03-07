@@ -66,3 +66,9 @@ val md_theme_dark_scrim = Color(0xFF000000)
 
 
 //val seed = Color(0xFF0099AE)
+
+val chartColor1 = Color(0xFFFF0000)
+val chartColor2 = Color(0xFFFF9800)
+val chartColor3 = Color(0xFFFFEB3B)
+val chartColor4 = Color(0xFF2196F3)
+val chartColor5 = Color(0xFF4CAF50)
