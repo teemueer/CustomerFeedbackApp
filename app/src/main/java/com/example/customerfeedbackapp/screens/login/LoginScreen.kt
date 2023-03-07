@@ -1,16 +1,23 @@
 package com.example.customerfeedbackapp.screens.login
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.material.Button
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.customerfeedbackapp.MainViewModel
+import com.example.customerfeedbackapp.fonts.ptserif_bold
 import com.example.customerfeedbackapp.models.User
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(navController: NavController, viewModel: MainViewModel) {
     var email by remember { mutableStateOf("") }
@@ -24,14 +31,46 @@ fun LoginScreen(navController: NavController, viewModel: MainViewModel) {
         }
     }
 
-    Column {
-        Text("Login", fontSize = 24.sp)
-        TextField(value = email, onValueChange = { email = it }, label = { Text("E-Mail" ) })
-        TextField(value = password, onValueChange = { password = it }, label = { Text("Password" ) })
-        Button(onClick = {
-            viewModel.login(email, password)
-        }) {
-            Text("Login")
+    Column(
+        Modifier
+            .fillMaxSize()
+            .padding(20.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text("Login", fontSize = 24.sp, fontFamily = ptserif_bold, fontWeight = FontWeight.Bold)
+
+        TextField(
+            value = email, onValueChange = { email = it },
+            label = { Text(text = "E-Mail", fontFamily = ptserif_bold) },
+            modifier =
+            Modifier
+                .height(60.dp)
+                .background(Color.White)
+                .fillMaxWidth(),
+            colors = TextFieldDefaults.textFieldColors(containerColor = Color.Transparent)
+        )
+
+
+
+        TextField(
+            value = password, onValueChange = { password = it },
+            label = { Text(text = "Password", fontFamily = ptserif_bold) },
+            modifier =
+            Modifier
+                .height(60.dp)
+                .background(Color.White)
+                .fillMaxWidth(),
+            colors = TextFieldDefaults.textFieldColors(containerColor = Color.Transparent)
+        )
+
+        Spacer(modifier = Modifier.height(50.dp))
+        Button(
+            onClick = {
+                viewModel.login(email, password)
+            },
+            shape = RoundedCornerShape(3.dp)
+        ) {
+            Text("Login", fontFamily = ptserif_bold)
         }
     }
 }

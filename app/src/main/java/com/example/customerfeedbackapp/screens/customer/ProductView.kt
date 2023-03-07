@@ -172,7 +172,7 @@ fun SearchView(state: MutableState<TextFieldValue>) {
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
                 disabledIndicatorColor = Color.Transparent,
-                containerColor = MaterialTheme.colorScheme.primary,
+                containerColor = MaterialTheme.colorScheme.secondary,
                 focusedLeadingIconColor = Color.White,
                 focusedTrailingIconColor = Color.White
             )

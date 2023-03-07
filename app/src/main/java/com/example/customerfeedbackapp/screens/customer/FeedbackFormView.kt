@@ -41,14 +41,14 @@ fun FeedbackFormView(productViewModel: ProductViewModel) {
         ) {
             TextField(
                 value = feedback, onValueChange = { feedback = it },
-                label = { Text(text = "Leave feedback here!") },
+                label = { Text(text = "Leave feedback here!", fontFamily = dmsans_regular) },
                 modifier =
                 Modifier
                     .height(200.dp)
                     .background(Color.White)
                     .fillMaxWidth(),
                 colors = TextFieldDefaults.textFieldColors(containerColor = Color.Transparent)
-                )
+            )
         }
         Spacer(modifier = Modifier.height(15.dp))
         Text(text = "Rate the product:", fontWeight = FontWeight.Bold, fontFamily = ptserif_bold)
