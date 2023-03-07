@@ -1,5 +1,6 @@
 package com.example.customerfeedbackapp.screens.owner
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -19,6 +20,7 @@ import com.example.customerfeedbackapp.screens.customer.ProductViewModel
 
 @Composable
 fun OwnerFeedbackView(productViewModel: ProductViewModel) {
+    Log.d("DBG", "${productViewModel.currentFeedbackSelected}")
     val feedbacks = productViewModel.currentItem2.feedback.filter {
         it.rating == productViewModel.currentFeedbackSelected && it.feedback != ""
     }
