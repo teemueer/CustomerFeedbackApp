@@ -4,20 +4,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <!--
-        1st block of permissions is used for map functionality. We want to get the users
-        location so that we can show them the closest shop available for them.
-
-        2nd block has camera and microphone permissions. Camera is used to scan QR / barcodes,
-        and the microphone is used for accessibility for people who have trouble typing out reviews.
-    -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
-    
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"

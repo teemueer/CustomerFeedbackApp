@@ -11,17 +11,6 @@ class MainViewModel(): ViewModel() {
     private var firestore = FirebaseFirestore.getInstance()
     var currentUser = MutableLiveData<User?>(null)
 
-    init {
-        /*
-        val firebaseUser = FirebaseAuth.getInstance().currentUser
-        firebaseUser?.let {
-            Log.d("DBG", "logging in...")
-            val user = User(it.uid, it.email)
-            currentUser.postValue(user)
-        }
-        */
-    }
-
     fun register(email: String, password: String, isOwner: Boolean) {
         val firebaseAuth = FirebaseAuth.getInstance()
         firebaseAuth.createUserWithEmailAndPassword(email, password)
