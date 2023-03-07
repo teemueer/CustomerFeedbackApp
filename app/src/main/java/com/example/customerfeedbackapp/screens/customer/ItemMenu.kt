@@ -1,10 +1,8 @@
 package com.example.customerfeedbackapp.screens.customer
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowRight
@@ -14,6 +12,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.customerfeedbackapp.fonts.ptserif_regular
 
 @Composable
 fun ItemMenu(
@@ -32,8 +31,9 @@ fun MenuView(navController: NavController,modifier: Modifier = Modifier
             modifier = modifier
                 .padding(18.dp)
         ) {
-            for (navItem in navList)
+            for (navItem in navList) {
                 MenuItem(name = navItem, navController = navController)
+            }
         }
     }
 }
@@ -48,10 +48,20 @@ fun MenuItem(name: String, navController: NavController) {
                 .clickable {
                     navController.navigate("${name}View")
                 },
+            shape = RoundedCornerShape(0.dp)
         ) {
             Row(modifier = Modifier.padding(20.dp)) {
-                Text(text = name, modifier = Modifier.weight(1f), color = MaterialTheme.colorScheme.onSecondary)
-                Icon(imageVector = Icons.Default.KeyboardArrowRight, contentDescription = "")
+                Text(
+                    text = name,
+                    modifier = Modifier.weight(1f),
+                    color = MaterialTheme.colorScheme.onSecondary,
+                    fontFamily = ptserif_regular
+                )
+                Icon(
+                    imageVector = Icons.Default.KeyboardArrowRight
+                    , contentDescription = ""
+                    , tint = MaterialTheme.colorScheme.onSecondary
+                )
             }
         }
     }

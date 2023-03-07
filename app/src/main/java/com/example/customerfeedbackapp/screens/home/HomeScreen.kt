@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -22,7 +21,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.customerfeedbackapp.R
-import com.example.customerfeedbackapp.newsDatabase.NewsArticle
+import com.example.customerfeedbackapp.fonts.dmsans_regular
+import com.example.customerfeedbackapp.fonts.ptserif_bold
 import com.example.customerfeedbackapp.newsDatabase.NewsArticleViewModel
 import com.example.customerfeedbackapp.ui.theme.CustomerFeedbackAppTheme
 
@@ -36,7 +36,7 @@ fun HomeScreen(
 fun HomeView(modifier: Modifier = Modifier) {
         Column(
             modifier = modifier
-                .padding(16.dp)
+                .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 0.dp)
                 .background(MaterialTheme.colorScheme.background)
 
         ) {
@@ -46,7 +46,8 @@ fun HomeView(modifier: Modifier = Modifier) {
                 text = "News:",
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
                 style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.ExtraBold
+                fontWeight = FontWeight.ExtraBold,
+                fontFamily = ptserif_bold
             )
             StoreNewsFeed()
         }
@@ -54,7 +55,7 @@ fun HomeView(modifier: Modifier = Modifier) {
 
 @Composable
 fun StoreHeader(
-    images: List<Int> = listOf(R.drawable.grocery_store_1, R.drawable.grocery_store_2)
+    images: List<Int> = listOf(R.drawable.grocery_store_1_2, R.drawable.grocery_store_2)
 ) {
     Column(
         modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally,
@@ -93,21 +94,6 @@ fun StoreInformation() {
     }
 }
 
-@Composable
-fun StoreOpenClosed() {
-
-
-}
-
-@Preview(showBackground = true, widthDp = 400)
-@Composable
-fun StoreOCPreview() {
-    CustomerFeedbackAppTheme {
-        Column {
-            StoreOpenClosed()
-        }
-    }
-}
 
 @Preview(showBackground = true, widthDp = 400)
 @Composable
@@ -126,8 +112,8 @@ fun StoreNews(headline: String, body: String) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 10.dp),
-        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primaryContainer),
-        shape = RoundedCornerShape(10.dp),
+        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
+        shape = RoundedCornerShape(0.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 10.dp)
 
     ) {
@@ -137,19 +123,20 @@ fun StoreNews(headline: String, body: String) {
 
                 Text(
                     text = headline,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                    color = MaterialTheme.colorScheme.onPrimary,
                     fontWeight = FontWeight.ExtraBold,
-                    style = MaterialTheme.typography.titleLarge
-
+                    style = MaterialTheme.typography.titleLarge,
+                    fontFamily = ptserif_bold
                 )
 
 
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = body,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                    color = MaterialTheme.colorScheme.onPrimary,
                     style = MaterialTheme.typography.bodyLarge,
                     fontWeight = FontWeight.Bold,
+                    fontFamily = dmsans_regular
                 )
             }
         }

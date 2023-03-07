@@ -1,40 +1,30 @@
 package com.example.customerfeedbackapp.screens.customer
 
-import android.Manifest
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material.Text
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.customerfeedbackapp.permissions.PermissionViewModel
+import com.example.customerfeedbackapp.fonts.ptserif_bold
 import com.example.customerfeedbackapp.screens.camera.CameraView
-import kotlinx.coroutines.*
 
 @Composable
 fun FeedbackView(productViewModel: ProductViewModel, navController: NavController) {
     val textState = remember { mutableStateOf(TextFieldValue("")) }
-    val viewModel = viewModel<PermissionViewModel>()
 
     var cameraOpen by remember { mutableStateOf(false) }
     var code by remember { mutableStateOf("") }
 
-    val cameraPermissionresultLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.RequestPermission(),
-        onResult = { isGranted ->
-            viewModel.onPermissionResult(
-                permission = Manifest.permission.CAMERA,
-                isGranted = isGranted
-            )
-        }
-    )
 
     if (cameraOpen) {
         if (code.isNotEmpty()) {
@@ -48,28 +38,43 @@ fun FeedbackView(productViewModel: ProductViewModel, navController: NavControlle
         }
         Box() {
             CameraView(scannerCode = code, onValueChange = { value -> code = value })
-            Button(onClick = { cameraOpen = !cameraOpen }) {
-                Text(text = "back")
+            Button(
+                onClick = {
+                    cameraOpen = !cameraOpen
+                },
+                colors = ButtonDefaults.buttonColors(Color.Transparent),
+                shape = RoundedCornerShape(0.dp),
+                border = BorderStroke(2.dp, Color.White),
+                modifier = Modifier.padding(20.dp)
+            ) {
+                Text(text = "RETURN", color = Color.White, fontWeight = FontWeight.ExtraBold)
             }
         }
     } else {
         Column(
             modifier = Modifier
-                .padding(16.dp)
+                .padding(start = 16.dp, top = 0.dp, bottom = 0.dp, end = 16.dp)
                 .fillMaxSize()
         ) {
             FeedbackInstruction()
             Spacer(modifier = Modifier.height(10.dp))
             SearchView(state = textState)
-            Button(onClick = {
-                cameraOpen = !cameraOpen
-            }, modifier = Modifier.fillMaxWidth()) {
-                Text(text = "Open camera")
+            Button(
+                onClick = {
+                    cameraOpen = !cameraOpen
+                }, modifier = Modifier
+                    .fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.primary),
+                shape = RoundedCornerShape(0.dp)
+            ) {
+                Text(
+                    text = "Open camera",
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    fontFamily = ptserif_bold
+                )
             }
             Column(
                 modifier = Modifier
-                    .heightIn(min = Dp.Unspecified, max = 550.dp)
-                    .padding(bottom = 10.dp)
             ) {
                 ProductList(
                     navController = navController,
@@ -77,10 +82,7 @@ fun FeedbackView(productViewModel: ProductViewModel, navController: NavControlle
                     state = textState,
                     true
                 )
-
             }
-
-
         }
     }
 
@@ -91,8 +93,11 @@ fun FeedbackView(productViewModel: ProductViewModel, navController: NavControlle
 fun FeedbackInstruction() {
     Column {
         Text(
-            text = "Valitse palautteelle annettava tuote.",
-            fontSize = 20.sp,
+            text = "Feedback:",
+            fontSize = 24.sp,
+            style = MaterialTheme.typography.headlineMedium,
+            fontWeight = FontWeight.ExtraBold,
+            fontFamily = ptserif_bold
         )
     }
 }

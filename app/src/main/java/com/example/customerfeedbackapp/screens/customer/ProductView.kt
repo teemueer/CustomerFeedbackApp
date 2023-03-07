@@ -1,6 +1,5 @@
 package com.example.customerfeedbackapp.screens.customer
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -21,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.example.customerfeedbackapp.fonts.ptserif_bold
 import com.example.customerfeedbackapp.models.Product2
 import java.util.*
 
@@ -36,7 +37,7 @@ import java.util.*
 fun ProductsView(navController: NavController, productViewModel: ProductViewModel) {
     val textState = remember { mutableStateOf(TextFieldValue("")) }
 
-    Column(Modifier.padding(16.dp)) {
+    Column(Modifier.padding(start = 16.dp, top = 0.dp, bottom = 0.dp, end = 16.dp)) {
         SearchView(state = textState)
         Spacer(modifier = Modifier.height(10.dp))
         ProductList(
@@ -60,9 +61,10 @@ fun ProductItem(
         modifier = Modifier
             .padding(top = 10.dp)
             .heightIn(min = Dp.Unspecified, max = 120.dp),
-        shape = RoundedCornerShape(10.dp),
-        //elevation = 5.dp,
-        border = BorderStroke(2.dp, MaterialTheme.colorScheme.secondary)
+        shape = RoundedCornerShape(2.dp),
+        elevation = CardDefaults.cardElevation(5.dp),
+        //border = BorderStroke(2.dp, MaterialTheme.colorScheme.primary),
+        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.background)
     ) {
         Row(
             Modifier
@@ -79,18 +81,19 @@ fun ProductItem(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceEvenly,
         ) {
-            AsyncImage(model = product.images?.first(), contentDescription = "",
-            modifier = Modifier.size(60.dp))
+            AsyncImage(
+                model = product.images?.first(), contentDescription = "",
+                modifier = Modifier.size(60.dp)
+            )
             Spacer(modifier = Modifier.padding(horizontal = 15.dp))
             Column(Modifier.weight(1f)) {
-                Text(text = product.title ?: "")
+                Text(text = product.title ?: "", fontFamily = ptserif_bold, fontWeight = FontWeight.Bold)
                 //if(product.description.isNotEmpty())Text(text = product.description)
             }
             Icon(imageVector = Icons.Default.KeyboardArrowRight, contentDescription = "")
         }
     }
 }
-
 
 
 @Composable
@@ -100,15 +103,14 @@ fun ProductList(
     state: MutableState<TextFieldValue>,
     isFeedback: Boolean,
 ) {
-    //val listOfProducts = productViewModel.getProducts()
     var filteredList: List<Product2>
 
-    LazyColumn(modifier = Modifier
-        .fillMaxWidth()
-        .heightIn(min = Dp.Unspecified, max = 625.dp)) {
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxWidth()
+    ) {
         val searchedText = state.value.text
         filteredList = if (searchedText.isEmpty()) {
-            //productViewModel.state
             productViewModel.fb.value
         } else {
             val resultList = ArrayList<Product2>()
@@ -123,9 +125,9 @@ fun ProductList(
         }
         items(items = filteredList) { product ->
             ProductItem(product = product, navController, productViewModel, isFeedback)
+            Spacer(modifier = Modifier.height(5.dp))
         }
     }
-
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -133,49 +135,49 @@ fun ProductList(
 fun SearchView(state: MutableState<TextFieldValue>) {
 
     Card(
-        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary)
-    ){
-    TextField(
-        value = state.value,
-        onValueChange = { value -> state.value = value },
-        modifier = Modifier.fillMaxWidth(),
-        textStyle = TextStyle(color = Color.White, fontSize = 18.sp),
-        leadingIcon = {
-            Icon(
-                imageVector = Icons.Default.Search, contentDescription = "",
-                modifier = Modifier
-                    .padding(15.dp)
-                    .size(24.dp)
-            )
-        },
-        trailingIcon = {
-            if (state.value != TextFieldValue("")) {
-                IconButton(onClick = { state.value = TextFieldValue("") }) {
-                    Icon(
-                        imageVector = Icons.Default.Close, contentDescription = "",
-                        modifier = Modifier
-                            .padding(15.dp)
-                            .size(24.dp)
-                    )
+        shape = RoundedCornerShape(0.dp),
+    ) {
+        TextField(
+            value = state.value,
+            onValueChange = { value -> state.value = value },
+            modifier = Modifier.fillMaxWidth(),
+            textStyle = TextStyle(color = Color.White, fontSize = 18.sp),
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Default.Search, contentDescription = "",
+                    modifier = Modifier
+                        .padding(15.dp)
+                        .size(24.dp)
+                )
+            },
+            trailingIcon = {
+                if (state.value != TextFieldValue("")) {
+                    IconButton(onClick = { state.value = TextFieldValue("") }) {
+                        Icon(
+                            imageVector = Icons.Default.Close, contentDescription = "",
+                            modifier = Modifier
+                                .padding(15.dp)
+                                .size(24.dp)
+                        )
+                    }
                 }
-            }
-        },
-        singleLine = true,
-        shape = RectangleShape,
-        colors = TextFieldDefaults.textFieldColors(
-            textColor = Color.White,
-            cursorColor = Color.White,
-           // leadingIconColor = Color.White,
-           // trailingIconColor = Color.White,
-            focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent,
-            disabledIndicatorColor = Color.Transparent,
-            containerColor = MaterialTheme.colorScheme.onPrimaryContainer,
-            focusedLeadingIconColor = Color.White,
-            focusedTrailingIconColor = Color.White
+            },
+            singleLine = true,
+            shape = RectangleShape,
+            colors = TextFieldDefaults.textFieldColors(
+                textColor = Color.White,
+                cursorColor = Color.White,
+                // leadingIconColor = Color.White,
+                // trailingIconColor = Color.White,
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent,
+                disabledIndicatorColor = Color.Transparent,
+                containerColor = MaterialTheme.colorScheme.primary,
+                focusedLeadingIconColor = Color.White,
+                focusedTrailingIconColor = Color.White
+            )
         )
-    )
-}
+    }
 }
 
 @Preview(showBackground = true)

@@ -6,6 +6,7 @@ import androidx.compose.animation.core.spring
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
@@ -18,10 +19,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import com.example.customerfeedbackapp.MainViewModel
 import com.example.customerfeedbackapp.R
+import com.example.customerfeedbackapp.fonts.dmsans_regular
+import com.example.customerfeedbackapp.fonts.ptserif_bold
 import com.example.customerfeedbackapp.models.Product
 import com.example.customerfeedbackapp.models.Product2
 import com.example.customerfeedbackapp.models.User
@@ -59,10 +63,16 @@ fun ProductTitle(product: Product2) {
     Column() {
         Text(
             text = product.title!!,
-            //style = MaterialTheme.typography.h5.copy(fontWeight = FontWeight.ExtraBold)
-            style = androidx.compose.material3.MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.ExtraBold)
+            style = MaterialTheme.typography.bodyLarge,
+            fontWeight = FontWeight.ExtraBold,
+            fontFamily = ptserif_bold,
+            fontSize = 24.sp
         )
-        Text(text = product.ean!!, style = MaterialTheme.typography.titleMedium)
+        Text(
+            text = product.ean!!,
+            style = MaterialTheme.typography.titleMedium,
+            fontFamily = dmsans_regular
+            )
     }
 }
 
@@ -92,7 +102,8 @@ fun ImageAndPrice(product: Product2) {
 fun InformationCard(productString: String, title: String) {
     Card(
         modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp),
-        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary)
+        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
+        shape = RoundedCornerShape(3.dp)
     ) {
         InformationCardContent(productString, title = title)
     }
@@ -116,12 +127,13 @@ fun InformationCardContent(productString: String, title: String) {
         Column(
             modifier = Modifier
                 .weight(1f)
-                .padding(12.dp)
+                .padding(12.dp),
+
         ) {
-            Text(text = title, fontWeight = FontWeight.ExtraBold)
+            Text(text = title, fontWeight = FontWeight.ExtraBold, fontFamily = ptserif_bold)
             if (expanded) {
                 Spacer(modifier = Modifier.padding(vertical = 5.dp))
-                Text(text = productString)
+                Text(text = productString, fontFamily = dmsans_regular)
             }
         }
         IconButton(onClick = { expanded = !expanded }) {
@@ -164,7 +176,8 @@ fun FeedbackButton(navController: NavHostController) {
             .fillMaxWidth()
             .padding(vertical = 4.dp, horizontal = 8.dp)
     ) {
-            Button(onClick = {navController.navigate("FeedbackFormView") }) {
+            Button(onClick = {navController.navigate("FeedbackFormView")},
+            shape = RoundedCornerShape(3.dp)) {
                     Text(text = "Arvioi tuote")
         }
     }
