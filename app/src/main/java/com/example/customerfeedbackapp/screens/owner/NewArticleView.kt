@@ -8,10 +8,12 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.customerfeedbackapp.R
 import com.example.customerfeedbackapp.fonts.dmsans_regular
 import com.example.customerfeedbackapp.fonts.ptserif_bold
 import com.example.customerfeedbackapp.newsDatabase.NewsArticle
@@ -36,7 +38,7 @@ fun InputCluster(navController: NavController) {
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        Text(text = "Title:", fontFamily = ptserif_bold)
+        Text(text = stringResource(R.string.article_title), fontFamily = ptserif_bold)
         Card(
             modifier = Modifier
                 .padding(top = 10.dp)
@@ -57,7 +59,7 @@ fun InputCluster(navController: NavController) {
             )
         }
         Spacer(modifier = Modifier.height(10.dp))
-        Text(text = "Body:", fontFamily = ptserif_bold)
+        Text(text = stringResource(R.string.article_body), fontFamily = ptserif_bold)
         Card(
             modifier = Modifier
                 .padding(top = 10.dp)
@@ -68,7 +70,7 @@ fun InputCluster(navController: NavController) {
         ) {
             TextField(
                 value = body, onValueChange = { body = it },
-                label = { Text(text = "Message", fontFamily = dmsans_regular) },
+                label = { Text(text = stringResource(R.string.article_message), fontFamily = dmsans_regular) },
                 modifier =
                 Modifier
                     .height(200.dp)
@@ -88,9 +90,7 @@ fun InputCluster(navController: NavController) {
             shape = RoundedCornerShape(3.dp)
 
         ) {
-            Text(text = "Post", fontFamily = ptserif_bold)
+            Text(text = stringResource(R.string.article_post), fontFamily = ptserif_bold)
         }
-
-
     }
 }

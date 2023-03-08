@@ -1,3 +1,41 @@
 <resources>
     <string name="app_name">Customer Feedback App</string>
+
+    <string name="news">News:</string>
+    <string name="grocery_store">Image of a grocery store</string>
+
+    <string name="login">Login</string>
+    <string name="logout">Log out</string>
+
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+
+    <string name="products">Products</string>
+    <string name="feedback">Feedback</string>
+    <string name="new_product">New product</string>
+    <string name="new_article">New article</string>
+
+    <string name="product_description">Product description</string>
+    <string name="rate_product">Rate the product</string>
+    <string name="charts">Charts</string>
+
+    <string name="feedback_for">Feedback for:</string>
+    <string name="leave_feedback">Leave feedback here!</string>
+    <string name="send">Send</string>
+
+    <string name="show_less">Show less</string>
+    <string name="show_more">Show more</string>
+
+    <string name="article_title">Title:</string>
+    <string name="article_body">Body:</string>
+    <string name="article_message">Message</string>
+    <string name="article_post">Post</string>
+
+    <string name="camera_return">RETURN</string>
+    <string name="camera_open">Open camera</string>
+
+    <string name="ean">EAN</string>
+    <string name="save_product">Save product</string>
+
+    <string name="no_feedback">No written feedback available</string>
 </resources>

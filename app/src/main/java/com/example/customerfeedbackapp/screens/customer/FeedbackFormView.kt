@@ -10,18 +10,28 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.customerfeedbackapp.R
 import com.example.customerfeedbackapp.fonts.dmsans_regular
 import com.example.customerfeedbackapp.fonts.ptserif_bold
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FeedbackFormView(productViewModel: ProductViewModel) {
+fun FeedbackFormView(productViewModel: ProductViewModel, navController: NavController) {
     var feedback by remember { mutableStateOf("") }
     var rating by remember { mutableStateOf(0) }
+
+    if (productViewModel.readyToNavigate) {
+        LaunchedEffect(true) {
+            navController.navigate("FeedbackView")
+        }
+    }
+
     Column(
         modifier = Modifier
             .padding(30.dp)
@@ -41,7 +51,7 @@ fun FeedbackFormView(productViewModel: ProductViewModel) {
         ) {
             TextField(
                 value = feedback, onValueChange = { feedback = it },
-                label = { Text(text = "Leave feedback here!", fontFamily = dmsans_regular) },
+                label = { Text(text = stringResource(R.string.leave_feedback), fontFamily = dmsans_regular) },
                 modifier =
                 Modifier
                     .height(200.dp)
@@ -51,7 +61,7 @@ fun FeedbackFormView(productViewModel: ProductViewModel) {
             )
         }
         Spacer(modifier = Modifier.height(15.dp))
-        Text(text = "Rate the product:", fontWeight = FontWeight.Bold, fontFamily = ptserif_bold)
+        Text(text = stringResource(R.string.rate_product), fontWeight = FontWeight.Bold, fontFamily = ptserif_bold)
         Spacer(modifier = Modifier.height(5.dp))
         Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
             for (i in 1..5) {
@@ -73,7 +83,7 @@ fun FeedbackFormView(productViewModel: ProductViewModel) {
             modifier = Modifier.width(150.dp),
             shape = RoundedCornerShape(4.dp)
         ) {
-            Text(text = "Send", fontFamily = ptserif_bold)
+            Text(text = stringResource(R.string.send), fontFamily = ptserif_bold)
         }
 
 
@@ -84,7 +94,7 @@ fun FeedbackFormView(productViewModel: ProductViewModel) {
 fun FeedbackHeader(productName: String) {
     Column {
         Text(
-            text = "Palaute tuotteelle:",
+            text = stringResource(R.string.feedback_for),
             fontWeight = FontWeight.ExtraBold,
             fontSize = 24.sp,
             fontFamily = ptserif_bold

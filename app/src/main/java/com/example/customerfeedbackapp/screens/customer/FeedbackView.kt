@@ -25,7 +25,6 @@ fun FeedbackView(productViewModel: ProductViewModel, navController: NavControlle
     var cameraOpen by remember { mutableStateOf(false) }
     var code by remember { mutableStateOf("") }
 
-
     if (cameraOpen) {
         if (code.isNotEmpty()) {
             for (product in productViewModel.state) {

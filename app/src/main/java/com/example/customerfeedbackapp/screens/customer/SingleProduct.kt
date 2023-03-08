@@ -1,5 +1,6 @@
 package com.example.customerfeedbackapp.screens.customer
 
+import android.util.Log
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
@@ -16,6 +17,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -34,8 +36,8 @@ import com.example.customerfeedbackapp.models.User
 fun SingleProduct(
     productViewModel: ProductViewModel,
     navController: NavHostController,
+    viewModel: MainViewModel
 ) {
-    val viewModel = MainViewModel()
     val user: User? by viewModel.currentUser.observeAsState(null)
     val product = productViewModel.currentItem2
     Column(
@@ -50,10 +52,14 @@ fun SingleProduct(
         Spacer(modifier = Modifier.padding(vertical = 15.dp))
         if (product.description!!.isNotEmpty()) InformationCard(
             product.description,
-            title = "Tuotekuvaus"
+            title = stringResource(R.string.product_description)
         )
         //if(product.product_info.isNotEmpty()) InformationCard(product.product_info, title = "Tuotetiedot")
-        if (user == null) FeedbackButton(navController = navController)
+        if (user == null) {
+            FeedbackButton(navController = navController)
+        } else {
+            ChartButton(navController)
+        }
     }
 }
 
@@ -140,9 +146,9 @@ fun InformationCardContent(productString: String, title: String) {
             Icon(
                 imageVector = if (expanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
                 contentDescription = if (expanded) {
-                    "Show less"
+                    stringResource(R.string.show_less)
                 } else {
-                    "Show more"
+                    stringResource(R.string.show_more)
                 }
 
             )
@@ -178,7 +184,21 @@ fun FeedbackButton(navController: NavHostController) {
     ) {
             Button(onClick = {navController.navigate("FeedbackFormView")},
             shape = RoundedCornerShape(3.dp)) {
-                    Text(text = "Arvioi tuote")
+                    Text(text = stringResource(R.string.rate_product))
+        }
+    }
+}
+
+@Composable
+fun ChartButton(navController: NavHostController) {
+    Row(
+        horizontalArrangement = Arrangement.Start, modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 4.dp, horizontal = 8.dp)
+    ) {
+        Button(onClick = {navController.navigate("ChartView")},
+            shape = RoundedCornerShape(3.dp)) {
+            Text(text = stringResource(R.string.charts))
         }
     }
 }

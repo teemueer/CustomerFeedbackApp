@@ -12,10 +12,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.customerfeedbackapp.R
 import com.example.customerfeedbackapp.fonts.dmsans_regular
 import com.example.customerfeedbackapp.fonts.ptserif_bold
 import com.example.customerfeedbackapp.screens.camera.CameraView
@@ -56,7 +58,7 @@ fun NewProductView(navController: NavController, productViewModel: ProductViewMo
                     border = BorderStroke(2.dp, Color.White),
                     modifier = Modifier.padding(20.dp)
                 ) {
-                    Text(text = "RETURN", color = Color.White, fontWeight = FontWeight.ExtraBold)
+                    Text(text = stringResource(R.string.camera_return), color = Color.White, fontWeight = FontWeight.ExtraBold)
                 }
             }
         }
@@ -75,7 +77,7 @@ fun NewProductView(navController: NavController, productViewModel: ProductViewMo
             ) {
                 TextField(
                     value = code, onValueChange = { code = it },
-                    label = { Text(text = "EAN:", fontFamily = dmsans_regular) }, modifier =
+                    label = { Text(text = stringResource(R.string.ean), fontFamily = dmsans_regular) }, modifier =
                     Modifier
                         .height(200.dp)
                         .background(Color.White)
@@ -96,7 +98,7 @@ fun NewProductView(navController: NavController, productViewModel: ProductViewMo
                     shape = RoundedCornerShape(4.dp)
                 ) {
                     Text(
-                        text = "Open Camera",
+                        text = stringResource(R.string.camera_open),
                         fontFamily = ptserif_bold
                     )
                 }
@@ -104,7 +106,7 @@ fun NewProductView(navController: NavController, productViewModel: ProductViewMo
                     onClick = { productViewModel.addProduct(code) },
                     shape = RoundedCornerShape(4.dp)
                 ) {
-                    Text(text = "Save product", fontFamily = ptserif_bold)
+                    Text(text = stringResource(R.string.save_product), fontFamily = ptserif_bold)
                 }
             }
 

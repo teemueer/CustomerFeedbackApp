@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Customer Feedback App</string>
+    <string name="leave_feedback">Anna palautetta tähän!</string>
+    <string name="news">Uutiset:</string>
+    <string name="grocery_store">Kuva kaupasta</string>
+    <string name="products">Tuotteet</string>
+    <string name="feedback">Palaute</string>
+    <string name="new_product">Uusi tuote</string>
+    <string name="new_article">Uusi artikkeli</string>
+    <string name="product_description">Tuotekuvaus</string>
+    <string name="rate_product">Arvioi tuote</string>
+    <string name="charts">Tilastot</string>
+    <string name="feedback_for">Palaute tuotteelle:</string>
+    <string name="send">Lähetä</string>
+    <string name="show_less">Näytä vähemmän</string>
+    <string name="show_more">Näytä enemmän</string>
+    <string name="login">Kirjaudu sisään</string>
+    <string name="logout">Kirjaudu ulos</string>
+    <string name="email">Sähköposti</string>
+    <string name="password">Salasana</string>
+    <string name="article_title">Otsikko:</string>
+    <string name="article_body">Sisältö:</string>
+    <string name="article_message">Viesti</string>
+    <string name="article_post">Julkaise</string>
+    <string name="camera_return">PALAA</string>
+    <string name="camera_open">Avaa kamera</string>
+    <string name="save_product">Tallenna tuote</string>
+    <string name="ean">Tunnistenumero</string>
+    <string name="no_feedback">Ei kirjallisia palautteita saatavilla</string>
+</resources>

@@ -59,8 +59,9 @@ class ProductViewModel() : ViewModel() {
         rRef.addOnSuccessListener {
             val feedbacks = product?.feedback ?: mutableListOf<Feedback>()
             feedbacks.add(Feedback(current,feedback, rating))
-            Log.d("DBG", "$feedbacks")
+            Log.d("DBG", "$readyToNavigate")
             handle.document(it.documents[0].id).update("feedback", feedbacks)
+            readyToNavigate = true
         }
     }
 

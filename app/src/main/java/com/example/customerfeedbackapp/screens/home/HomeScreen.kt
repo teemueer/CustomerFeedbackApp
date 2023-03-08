@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -43,7 +44,7 @@ fun HomeView(modifier: Modifier = Modifier) {
             StoreHeader()
             StoreInformation()
             Text(
-                text = "News:",
+                text = stringResource(R.string.news),
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.ExtraBold,
@@ -65,7 +66,7 @@ fun StoreHeader(
         ) {
             Image(
                 painter = painterResource(id = images[0]),
-                contentDescription = "An image of a grocery store"
+                contentDescription = stringResource(R.string.grocery_store)
             )
         }
     }

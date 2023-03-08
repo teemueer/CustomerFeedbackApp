@@ -17,6 +17,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -69,7 +70,12 @@ fun CustomerFeedbackApp(
     viewModel: MainViewModel,
     productViewModel: ProductViewModel,
 ) {
-    val navItems: List<String> = listOf("Products", "Feedback")
+    //val navItems: List<String> = listOf("Products", "Feedback")
+    val navItems = mapOf(
+        "Products" to stringResource(R.string.products),
+        "Feedback" to stringResource(R.string.feedback)
+    )
+
     val navController = rememberNavController()
 
     Scaffold(
@@ -101,7 +107,7 @@ fun CustomerFeedbackApp(
                         ProductsView(navController, productViewModel)
                     }
                     composable(route = "SingleProduct") {
-                        SingleProduct(productViewModel, navController)
+                        SingleProduct(productViewModel, navController, viewModel)
                     }
                     composable(route = "FeedbackView") {
                         FeedbackView(productViewModel, navController)
@@ -109,7 +115,7 @@ fun CustomerFeedbackApp(
                     composable(
                         route = "FeedbackFormView"
                     ) {
-                        FeedbackFormView(productViewModel)
+                        FeedbackFormView(productViewModel, navController)
                     }
                 }
             }
@@ -123,7 +129,13 @@ fun OwnerFeedbackApp(
     viewModel: MainViewModel,
     productViewModel: ProductViewModel,
 ) {
-    val navItems: List<String> = listOf("Products", "Charts", "New Product", "New Article")
+    //val navItems: List<String> = listOf("Products", /*"Charts",*/ "New Product", "New Article")
+    val navItems = mapOf(
+        "Products" to stringResource(R.string.products),
+        "New Product" to stringResource(R.string.new_product),
+        "New Article" to stringResource(R.string.new_article),
+    )
+
     val navController = rememberNavController()
 
     Scaffold(
@@ -161,10 +173,7 @@ fun OwnerFeedbackApp(
                         ProductsView(navController, productViewModel)
                     }
                     composable(route = "SingleProduct") {
-                        SingleProduct(productViewModel, navController)
-                    }
-                    composable(route = "ChartsView") {
-                        ChartsView(productViewModel, navController)
+                        SingleProduct(productViewModel, navController, viewModel)
                     }
                     composable(route = "ChartView") {
                         ChartView(productViewModel, navController)
