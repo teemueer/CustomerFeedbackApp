@@ -119,7 +119,7 @@ fun ProductList(
             productViewModel.fb
         } else {
             val resultList = ArrayList<Product2>()
-            for (product2 in productViewModel.state) {
+            for (product2 in productViewModel.fb) {
                 if (product2.title!!.lowercase(Locale.getDefault())
                         .contains(searchedText.lowercase(Locale.getDefault()))
                 ) {
