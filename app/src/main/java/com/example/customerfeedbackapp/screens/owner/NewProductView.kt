@@ -104,7 +104,8 @@ fun NewProductView(navController: NavController, productViewModel: ProductViewMo
                     )
                 }
                 Button(
-                    onClick = { productViewModel.addProduct(code) },
+                    onClick = { productViewModel.addProduct(code)
+                              productViewModel.readyToNavigate = true},
                     shape = RoundedCornerShape(4.dp)
                 ) {
                     Text(text = stringResource(R.string.save_product), fontFamily = ptserif_bold)

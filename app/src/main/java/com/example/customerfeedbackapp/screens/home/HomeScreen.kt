@@ -155,7 +155,7 @@ fun StoreNewsFeed(
     LazyColumn(
         modifier = modifier
     ) {
-        items(items = articles) { article ->
+        items(items = articles.reversed()) { article ->
             article.newsTitle?.let {
                 article.newsArticle?.let { it1 ->
                     StoreNews(
