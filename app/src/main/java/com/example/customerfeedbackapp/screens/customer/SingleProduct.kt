@@ -50,7 +50,7 @@ fun SingleProduct(
         Spacer(modifier = Modifier.height(20.dp))
         ImageAndPrice(product = product)
         Spacer(modifier = Modifier.padding(vertical = 15.dp))
-        if (product.description!!.isNotEmpty()) InformationCard(
+        if (product.description != null) InformationCard(
             product.description,
             title = stringResource(R.string.product_description)
         )
@@ -89,7 +89,7 @@ fun ImageAndPrice(product: Product2) {
         horizontalArrangement = Arrangement.Center,
         modifier = Modifier.fillMaxWidth()
     ) {
-        product.images?.first().let {
+        product.images?.first()?.let {
             Image(
                 painter = rememberAsyncImagePainter(it),
                 contentDescription = null,
