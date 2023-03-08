@@ -149,7 +149,7 @@ fun OwnerFeedbackApp(
                 verticalArrangement = Arrangement.Top
             )
             {
-                NavHost(navController, startDestination = "home") {
+                NavHost(navController, startDestination = "ItemMenu") {
                     composable(route = "home") {
                         OwnerHome()
                     }

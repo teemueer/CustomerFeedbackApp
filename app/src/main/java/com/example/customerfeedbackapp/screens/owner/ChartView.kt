@@ -6,12 +6,16 @@ import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.NavController
+import com.example.customerfeedbackapp.fonts.ptserif_bold
 import com.example.customerfeedbackapp.models.Feedback
 import com.example.customerfeedbackapp.screens.customer.ProductViewModel
 import com.example.customerfeedbackapp.ui.theme.*
@@ -28,8 +32,13 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 
 @Composable
 fun ChartView(productViewModel: ProductViewModel, navController: NavController) {
-    Column {
-        Text(productViewModel.currentItem2.title!!, fontSize = 16.sp)
+    Column(modifier = Modifier.padding(20.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(
+            text = productViewModel.currentItem2.title!!,
+            fontSize = 20.sp,
+            fontFamily = ptserif_bold,
+            fontWeight = FontWeight.Bold
+        )
 
         Crossfade(targetState = productViewModel.currentItem2.feedback) { feedbackData ->
             AndroidView(factory = { context ->
