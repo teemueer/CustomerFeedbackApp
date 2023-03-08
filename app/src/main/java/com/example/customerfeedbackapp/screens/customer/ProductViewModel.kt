@@ -30,7 +30,6 @@ class ProductViewModel() : ViewModel() {
 
     private var firestore = FirebaseFirestore.getInstance()
 
-    //var fb = mutableStateOf<List<Product2>>(emptyList())
     var fb by mutableStateOf<List<Product2>>(emptyList())
 
     var state = ArrayList<Product2>()
@@ -50,23 +49,6 @@ class ProductViewModel() : ViewModel() {
             fb = it
         }
     }
-
-    /*
-    fun getProductsBCAPI() {
-        val handle = firestore.collection("products").get()
-        handle.addOnSuccessListener {
-            val _products = ArrayList<Product2>()
-            for (product in it.documents) {
-                product.toObject(Product2::class.java)?.let {
-                    _products.add(it)
-                    state.add(it)
-                }
-            }
-            fb.value = _products
-        }
-        handle.addOnFailureListener { Log.d("DBG", "${it.message}") }
-    }
-    */
 
     fun rate(feedback: String, rating: Int) {
         val handle = firestore.collection("products")

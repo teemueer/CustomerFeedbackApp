@@ -52,7 +52,6 @@ class MainActivity : ComponentActivity() {
             CustomerFeedbackAppTheme {
                 val productViewModel: ProductViewModel by viewModels()
 
-                //productViewModel.getProductsBCAPI()
                 if (user != null) {
                     OwnerFeedbackApp(viewModel,productViewModel)
                 } else {
