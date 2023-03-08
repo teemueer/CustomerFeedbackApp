@@ -1,5 +1,6 @@
 package com.example.customerfeedbackapp.screens.customer
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -30,6 +31,10 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.customerfeedbackapp.fonts.ptserif_bold
 import com.example.customerfeedbackapp.models.Product2
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.forEach
+import kotlinx.coroutines.flow.toList
 import java.util.*
 
 
@@ -111,7 +116,7 @@ fun ProductList(
     ) {
         val searchedText = state.value.text
         filteredList = if (searchedText.isEmpty()) {
-            productViewModel.fb.value
+            productViewModel.fb
         } else {
             val resultList = ArrayList<Product2>()
             for (product2 in productViewModel.state) {

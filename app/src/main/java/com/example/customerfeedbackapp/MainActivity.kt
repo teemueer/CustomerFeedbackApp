@@ -52,11 +52,11 @@ class MainActivity : ComponentActivity() {
             CustomerFeedbackAppTheme {
                 val productViewModel: ProductViewModel by viewModels()
 
-                productViewModel.getProductsBCAPI()
+                //productViewModel.getProductsBCAPI()
                 if (user != null) {
                     OwnerFeedbackApp(viewModel,productViewModel)
                 } else {
-                        CustomerFeedbackApp(viewModel, productViewModel)
+                    CustomerFeedbackApp(viewModel, productViewModel)
                 }
             }
         }
