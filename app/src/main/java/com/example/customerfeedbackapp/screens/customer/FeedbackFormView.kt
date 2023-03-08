@@ -29,6 +29,7 @@ fun FeedbackFormView(productViewModel: ProductViewModel, navController: NavContr
     if (productViewModel.readyToNavigate) {
         LaunchedEffect(true) {
             navController.navigate("FeedbackView")
+            productViewModel.readyToNavigate = false
         }
     }
 

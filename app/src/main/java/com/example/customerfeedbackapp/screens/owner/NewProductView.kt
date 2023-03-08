@@ -38,6 +38,7 @@ fun NewProductView(navController: NavController, productViewModel: ProductViewMo
     if (productViewModel.readyToNavigate) {
         LaunchedEffect(true) {
             navController.navigate("ProductsView")
+            productViewModel.readyToNavigate = false
         }
     }
 

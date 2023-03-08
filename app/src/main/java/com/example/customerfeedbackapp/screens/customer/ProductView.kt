@@ -31,10 +31,6 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.customerfeedbackapp.fonts.ptserif_bold
 import com.example.customerfeedbackapp.models.Product2
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.flatMapConcat
-import kotlinx.coroutines.flow.forEach
-import kotlinx.coroutines.flow.toList
 import java.util.*
 
 
