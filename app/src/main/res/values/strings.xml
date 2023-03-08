@@ -4,6 +4,9 @@
     <string name="news">News:</string>
     <string name="grocery_store">Image of a grocery store</string>
 
+    <string name="home">Home</string>
+    <string name="menu">Menu</string>
+
     <string name="login">Login</string>
     <string name="logout">Log out</string>
 

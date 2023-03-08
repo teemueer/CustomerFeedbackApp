@@ -8,8 +8,10 @@ import androidx.compose.material.icons.filled.List
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.runtime.*
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.example.customerfeedbackapp.fonts.dmsans_bold
+import com.example.customerfeedbackapp.R
 
 @Composable
 fun BottomBar(
@@ -27,7 +29,7 @@ fun BottomBar(
                 icon = {
                     Icon(
                         imageVector = Icons.Default.Home,
-                        contentDescription = "Home"
+                        contentDescription = stringResource(R.string.home)
                     )
                 },
                 label = { Text(text = "Home", fontFamily = dmsans_bold)}
@@ -42,10 +44,10 @@ fun BottomBar(
                 icon = {
                     Icon(
                         imageVector = Icons.Default.List,
-                        contentDescription = "List "
+                        contentDescription = stringResource(R.string.menu)
                     )
                 },
-                label = { Text(text = "Menu", fontFamily = dmsans_bold)},
+                label = { Text(text = stringResource(R.string.menu), fontFamily = dmsans_bold)},
             )
         }
 }

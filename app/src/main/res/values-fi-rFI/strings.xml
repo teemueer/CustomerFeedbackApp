@@ -28,4 +28,6 @@
     <string name="save_product">Tallenna tuote</string>
     <string name="ean">Tunnistenumero</string>
     <string name="no_feedback">Ei kirjallisia palautteita saatavilla</string>
+    <string name="home">Koti</string>
+    <string name="menu">Valikko</string>
 </resources>
