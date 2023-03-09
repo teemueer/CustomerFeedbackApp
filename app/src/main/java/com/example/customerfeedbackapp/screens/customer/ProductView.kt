@@ -175,7 +175,8 @@ fun SearchView(state: MutableState<TextFieldValue>) {
                 disabledIndicatorColor = Color.Transparent,
                 containerColor = MaterialTheme.colorScheme.secondary,
                 focusedLeadingIconColor = Color.White,
-                focusedTrailingIconColor = Color.White
+                focusedTrailingIconColor = Color.White,
+                unfocusedLeadingIconColor = Color.White,
             )
         )
     }
