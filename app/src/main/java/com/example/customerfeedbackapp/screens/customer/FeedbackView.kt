@@ -96,7 +96,8 @@ fun FeedbackInstruction() {
             fontSize = 24.sp,
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.ExtraBold,
-            fontFamily = ptserif_bold
+            fontFamily = ptserif_bold,
+            color = MaterialTheme.colorScheme.inverseSurface
         )
     }
 }

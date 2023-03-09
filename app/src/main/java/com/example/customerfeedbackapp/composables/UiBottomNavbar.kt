@@ -5,6 +5,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.List
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.runtime.*
@@ -19,6 +20,7 @@ fun BottomBar(
 ) {
     var selectedIndex by remember { mutableStateOf(0) }
         NavigationBar(
+            containerColor = MaterialTheme.colorScheme.secondary
         ) {
             NavigationBarItem(
                 selected = (selectedIndex == 0),
@@ -29,10 +31,11 @@ fun BottomBar(
                 icon = {
                     Icon(
                         imageVector = Icons.Default.Home,
-                        contentDescription = stringResource(R.string.home)
+                        contentDescription = stringResource(R.string.home),
+                        tint = MaterialTheme.colorScheme.onPrimary
                     )
                 },
-                label = { Text(text = "Home", fontFamily = dmsans_bold)}
+                label = { Text(text = "Home", fontFamily = dmsans_bold,color = MaterialTheme.colorScheme.onPrimary)}
             )
 
             NavigationBarItem(
@@ -44,10 +47,11 @@ fun BottomBar(
                 icon = {
                     Icon(
                         imageVector = Icons.Default.List,
-                        contentDescription = stringResource(R.string.menu)
+                        contentDescription = stringResource(R.string.menu),
+                        tint = MaterialTheme.colorScheme.onPrimary
                     )
                 },
-                label = { Text(text = stringResource(R.string.menu), fontFamily = dmsans_bold)},
+                label = { Text(text = stringResource(R.string.menu), fontFamily = dmsans_bold, color = MaterialTheme.colorScheme.onPrimary)},
             )
         }
 }

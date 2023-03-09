@@ -6,6 +6,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -37,13 +38,17 @@ fun SettingsScreen(navController: NavController, viewModel: MainViewModel) {
         ) {
             if (user == null) {
                 Row(modifier = Modifier.clickable { navController.navigate("login") }) {
-                    Icon(Icons.Filled.AccountBox, stringResource(R.string.login), Modifier.size(40.dp))
+                    Icon(
+                        Icons.Filled.AccountBox, stringResource(R.string.login), Modifier.size(40.dp)
+                        , tint = MaterialTheme.colorScheme.inverseSurface
+                        )
                     Spacer(modifier = Modifier.width(10.dp))
                     Text(
                         text = stringResource(R.string.login),
                         fontFamily = ptserif_bold,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 24.sp
+                        fontSize = 24.sp,
+                        color = MaterialTheme.colorScheme.inverseSurface
                     )
                 }
 
@@ -52,12 +57,18 @@ fun SettingsScreen(navController: NavController, viewModel: MainViewModel) {
                     viewModel.logout()
                     navController.navigate("home")
                 }) {
-                    Icon(Icons.Filled.AccountBox, stringResource(R.string.logout), Modifier.size(40.dp))
+                    Icon(
+                        Icons.Filled.AccountBox,
+                        stringResource(R.string.logout),
+                        Modifier.size(40.dp),
+                        tint = MaterialTheme.colorScheme.inverseSurface
+                    )
                     Text(
                         text = stringResource(R.string.logout),
                         fontFamily = ptserif_bold,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 24.sp
+                        fontSize = 24.sp,
+                        color = MaterialTheme.colorScheme.inverseSurface
                     )
                 }
             }
