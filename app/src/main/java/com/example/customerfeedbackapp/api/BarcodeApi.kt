@@ -10,6 +10,7 @@ import retrofit2.http.Query
 
 object BarcodeApi {
     const val BASE_URL = "https://barcodes1.p.rapidapi.com/"
+	const val API_KEY = ""
 
     object Model {
         data class Product(
