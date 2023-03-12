@@ -34,6 +34,7 @@ import com.example.customerfeedbackapp.ui.theme.CustomerFeedbackAppTheme
 import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : ComponentActivity() {
+	// main viewmodel containing the user information
     private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,7 +70,7 @@ fun CustomerFeedbackApp(
     viewModel: MainViewModel,
     productViewModel: ProductViewModel,
 ) {
-    //val navItems: List<String> = listOf("Products", "Feedback")
+    // navigation items presented as a map which contains the route name and a localized string name
     val navItems = mapOf(
         "Products" to stringResource(R.string.products),
         "Feedback" to stringResource(R.string.feedback)
@@ -128,7 +129,7 @@ fun OwnerFeedbackApp(
     viewModel: MainViewModel,
     productViewModel: ProductViewModel,
 ) {
-    //val navItems: List<String> = listOf("Products", /*"Charts",*/ "New Product", "New Article")
+    // navigation items presented as a map which contains the route name and a localized string name
     val navItems = mapOf(
         "Products" to stringResource(R.string.products),
         "New Product" to stringResource(R.string.new_product),

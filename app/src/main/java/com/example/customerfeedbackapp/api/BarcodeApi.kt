@@ -29,6 +29,7 @@ object BarcodeApi {
         suspend fun product(@Query("query") query: String): Model.Result
     }
 
+	// logging response into console
     val logging = HttpLoggingInterceptor()
         .setLevel(HttpLoggingInterceptor.Level.BODY)
     val client = OkHttpClient.Builder()

@@ -43,33 +43,39 @@ fun ChartView(productViewModel: ProductViewModel, navController: NavController) 
         Crossfade(targetState = productViewModel.currentItem2.feedback) { feedbackData ->
             AndroidView(factory = { context ->
                 BarChart(context).apply {
+				
+					// fit chart to whole screen
                     layoutParams = LinearLayout.LayoutParams(
-                        // on below line we are specifying layout
-                        // params as MATCH PARENT for height and width.
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.MATCH_PARENT,
                     )
+					
                     this.description.isEnabled = false
                     this.legend.isEnabled = false
 
                     this.xAxis.isEnabled = true
+					
+					// hide unnecessary lines
                     this.axisLeft.isEnabled = false
                     this.axisRight.isEnabled = false
-
                     this.axisLeft.axisMinimum = 0f
 
+					// set x-axis to our rating levels 1-5
                     this.xAxis.setLabelCount(5)
-
                     this.xAxis.valueFormatter =
                         IndexAxisValueFormatter(listOf("1", "2", "3", "4", "5"))
+						
+					// formatting x-axis
                     this.xAxis.position = XAxis.XAxisPosition.BOTTOM
                     this.xAxis.setCenterAxisLabels(false)
                     this.xAxis.setDrawAxisLine(false)
                     this.xAxis.setDrawGridLines(false)
                     this.xAxis.textSize = 18f
 
+					// space for the bottom menu
                     this.extraBottomOffset = 20f
 
+					// listener for clicking different bars on the chart for navigation to feedback view
                     this.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
                         override fun onValueSelected(e: Entry?, h: Highlight?) {
                             productViewModel.currentFeedbackSelected = e?.x?.toInt()!! + 1
@@ -90,18 +96,21 @@ fun ChartView(productViewModel: ProductViewModel, navController: NavController) 
 fun updateBarChartWithData(chart: BarChart, data: List<Feedback>) {
     val entries = ArrayList<BarEntry>()
 
+	// sums of different ratings
     val ratings = mutableListOf(0f, 0f, 0f, 0f, 0f)
     for (i in data.indices) {
         ratings[data[i].rating - 1] += 1f
     }
 
+	// insert data
     for ((i, e) in ratings.withIndex())
         entries.add(BarEntry(i.toFloat(), e))
-
     val ds = BarDataSet(entries, "Feedback")
 
+	// make values whole
     ds.valueFormatter = DefaultValueFormatter(0)
 
+	// colors for different bars
     ds.colors = arrayListOf(
         chartColor1.toArgb(),
         chartColor2.toArgb(),
@@ -110,6 +119,7 @@ fun updateBarChartWithData(chart: BarChart, data: List<Feedback>) {
         chartColor5.toArgb(),
     )
 
+	// create the chart
     val d = BarData(ds)
     chart.data = d
     chart.data.setValueTextSize(12f)

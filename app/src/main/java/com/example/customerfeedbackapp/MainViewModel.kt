@@ -8,9 +8,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class MainViewModel(): ViewModel() {
+	// firestore instance
     private var firestore = FirebaseFirestore.getInstance()
+	
+	// firebase user
     var currentUser = MutableLiveData<User?>(null)
 
+	// new user registration to firebase
     fun register(email: String, password: String, isOwner: Boolean) {
         val firebaseAuth = FirebaseAuth.getInstance()
         firebaseAuth.createUserWithEmailAndPassword(email, password)
@@ -27,6 +31,7 @@ class MainViewModel(): ViewModel() {
             }
     }
 
+	// user login to firebase
     fun login(email: String, password: String) {
         val firebaseAuth = FirebaseAuth.getInstance()
         firebaseAuth.signInWithEmailAndPassword(email, password)
@@ -42,11 +47,13 @@ class MainViewModel(): ViewModel() {
             }
     }
 
+	// user logout from firebase
     fun logout() {
         FirebaseAuth.getInstance().signOut()
         currentUser.postValue(null)
     }
 
+	// save new user to firestore
     fun saveUser(user: User) {
         val handle = firestore.collection("users").document(user.uid).set(user)
         handle.addOnSuccessListener {
@@ -56,6 +63,7 @@ class MainViewModel(): ViewModel() {
         handle.addOnFailureListener { Log.d("DBG", "${it.message}") }
     }
 
+	// get user from firestore
     fun getUser(uid: String) {
         val handle = firestore.collection("users").document(uid).get()
         handle.addOnSuccessListener {
